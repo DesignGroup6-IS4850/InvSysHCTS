@@ -136,7 +136,7 @@ export const icons = Object.assign({}, {
   sygnet,
   logo,
   logoNegative,
-  sunLogo
+  hctsLogo
 }, {
   cilAlignCenter,
   cilAlignLeft,
