@@ -48,6 +48,10 @@ const NewInventoryItem = () => {
     setFormData(initialFormState);
   }
 
+  function returnToInventory() {
+    history.push("/inventory");  
+  }
+
   function showConfirmation(title, text) {
     var modalElement = document.getElementById('confirmationModal');
     modalElement.addEventListener("hidden.coreui.modal", function () { history.push("/inventory"); });
@@ -139,8 +143,9 @@ const NewInventoryItem = () => {
               </CForm>
             </CCardBody>
             <CCardFooter>
-              <CButton type="submit" size="sm" color="primary" onClick={createInventoryItem}><CIcon name="cil-scrubber" /> Submit</CButton>
-              <CButton type="reset" size="sm" color="danger" onClick={resetForm}><CIcon name="cil-ban" /> Reset</CButton>
+              <CButton type="cancel" size="sm" color="danger" onClick={returnToInventory}><CIcon name="cil-ban" /> Cancel</CButton>
+              <CButton type="clear" size="sm" color="info" onClick={resetForm}><CIcon name="cil-scrubber" /> Clear</CButton>
+              <span class="span-right"><CButton type="submit" size="sm" color="success" onClick={createInventoryItem}><CIcon name="cil-check-circle" /> Submit</CButton></span>
             </CCardFooter>
           </CCard>
 

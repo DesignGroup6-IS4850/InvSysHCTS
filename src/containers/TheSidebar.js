@@ -31,7 +31,7 @@ const TheSidebar = () => {
       <CSidebarBrand className="d-md-down-none" to="/">
         <CIcon
           className="c-sidebar-brand-full"
-          name="sun-logo"
+          name="hctsLogo"
           height={80}
         />
         <CIcon

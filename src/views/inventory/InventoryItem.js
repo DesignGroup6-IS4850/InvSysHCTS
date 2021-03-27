@@ -76,6 +76,10 @@ const InventoryItem = ({ match }) => {
     confirmationModal.show();
   }
 
+  function returnToInventory() {
+    history.push("/inventory");  
+  }
+
   return (
     <>
 
@@ -154,8 +158,9 @@ const InventoryItem = ({ match }) => {
               </CForm>
             </CCardBody>
             <CCardFooter>
-              <CButton type="update" size="sm" color="primary" onClick={() => updateInventoryItem()}><CIcon name="cil-scrubber" /> Update</CButton>
-              <CButton type="delete" size="sm" color="danger" onClick={() => deleteInventoryItem()} ><CIcon name="cil-ban" /> Delete</CButton>
+              <CButton type="cancel" size="sm" color="danger" onClick={returnToInventory}><CIcon name="cil-ban" /> Cancel</CButton>
+              <CButton type="delete" size="sm" color="warning" onClick={() => deleteInventoryItem()} ><CIcon name="cil-x-circle" /> Delete</CButton>
+              <span class="span-right"><CButton type="update" size="sm" color="primary" onClick={() => updateInventoryItem()}><CIcon name="cil-check-circle" /> Update</CButton></span>
             </CCardFooter>
           </CCard>
 

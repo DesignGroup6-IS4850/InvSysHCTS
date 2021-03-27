@@ -1,13 +1,17 @@
 // Here you can add other styles
 .c-sidebar {
     color: #fff;
-    background: #077eee;
+    background: #0ac7ef;
   }
 
   :root{
 
-    --amplify-primary-color: #077eee;
-    --amplify-primary-tint: #0000FF; 
-    --amplify-primary-shade: #077eee;
+    --amplify-primary-color: #13aac8;
+    --amplify-primary-tint: #0ac7eF; 
+    --amplify-primary-shade: #13aac8;
   
+    }
+
+    .span-right {
+      float: right;
     }

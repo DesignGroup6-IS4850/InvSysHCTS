@@ -44,7 +44,7 @@ const Inventory = () => {
 
   return (
     <CRow>
-      <CCol xl={6}>
+      <CCol xl={12}>
         <CCard>
           <CCardHeader>
             Inventory
@@ -59,7 +59,7 @@ const Inventory = () => {
             ]}
             hover
             striped
-            itemsPerPage={5}
+            itemsPerPage={8}
             activePage={page}
             clickableRows
             onRowClick={(item) => history.push(`/inventory/${item.id}`)}
