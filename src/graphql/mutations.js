@@ -55,3 +55,180 @@ export const deleteInventoryItem = /* GraphQL */ `
     }
   }
 `;
+export const createJob = /* GraphQL */ `
+  mutation CreateJob(
+    $input: CreateJobInput!
+    $condition: ModelJobConditionInput
+  ) {
+    createJob(input: $input, condition: $condition) {
+      id
+      name
+      startDate
+      endDate
+      inventory {
+        items {
+          id
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
+      _version
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const updateJob = /* GraphQL */ `
+  mutation UpdateJob(
+    $input: UpdateJobInput!
+    $condition: ModelJobConditionInput
+  ) {
+    updateJob(input: $input, condition: $condition) {
+      id
+      name
+      startDate
+      endDate
+      inventory {
+        items {
+          id
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
+      _version
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const deleteJob = /* GraphQL */ `
+  mutation DeleteJob(
+    $input: DeleteJobInput!
+    $condition: ModelJobConditionInput
+  ) {
+    deleteJob(input: $input, condition: $condition) {
+      id
+      name
+      startDate
+      endDate
+      inventory {
+        items {
+          id
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
+      _version
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const createJobInventory = /* GraphQL */ `
+  mutation CreateJobInventory(
+    $input: CreateJobInventoryInput!
+    $condition: ModelJobInventoryConditionInput
+  ) {
+    createJobInventory(input: $input, condition: $condition) {
+      id
+      job {
+        id
+        name
+        startDate
+        endDate
+        inventory {
+          nextToken
+        }
+        _version
+        createdAt
+        updatedAt
+      }
+      inventoryItem {
+        id
+        name
+        quantity
+        description
+        brand
+        category
+        _version
+        createdAt
+        updatedAt
+      }
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const updateJobInventory = /* GraphQL */ `
+  mutation UpdateJobInventory(
+    $input: UpdateJobInventoryInput!
+    $condition: ModelJobInventoryConditionInput
+  ) {
+    updateJobInventory(input: $input, condition: $condition) {
+      id
+      job {
+        id
+        name
+        startDate
+        endDate
+        inventory {
+          nextToken
+        }
+        _version
+        createdAt
+        updatedAt
+      }
+      inventoryItem {
+        id
+        name
+        quantity
+        description
+        brand
+        category
+        _version
+        createdAt
+        updatedAt
+      }
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const deleteJobInventory = /* GraphQL */ `
+  mutation DeleteJobInventory(
+    $input: DeleteJobInventoryInput!
+    $condition: ModelJobInventoryConditionInput
+  ) {
+    deleteJobInventory(input: $input, condition: $condition) {
+      id
+      job {
+        id
+        name
+        startDate
+        endDate
+        inventory {
+          nextToken
+        }
+        _version
+        createdAt
+        updatedAt
+      }
+      inventoryItem {
+        id
+        name
+        quantity
+        description
+        brand
+        category
+        _version
+        createdAt
+        updatedAt
+      }
+      createdAt
+      updatedAt
+    }
+  }
+`;

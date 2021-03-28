@@ -15,26 +15,27 @@ import {
 } from '@coreui/react'
 import CIcon from '@coreui/icons-react'
 import { API } from 'aws-amplify';
-import { createInventoryItem as createInventoryItemMutation } from '../../graphql/mutations';
+import { createJob as createJobMutation } from '../../graphql/mutations';
 
 import { useHistory } from "react-router-dom";
 
 import { Modal } from '@coreui/coreui';
 
-const initialFormState = { name: '', quantity: 0, description: '', brand: '', category: '' }
+const initialFormState = { name: '', startDate: '', endDate: '' }
 
-const NewInventoryItem = () => {
+const NewJob = () => {
 
-  const [inventoryItem, setInventoryItem] = useState([]);
+  const [job, setJob] = useState([]);
   const [formData, setFormData] = useState(initialFormState);
   const history = useHistory();
 
-  async function createInventoryItem() {
-    if (!formData.name || !formData.description) return;
+  async function createJob() {
+    if (!formData.name) return;
 
     try {
-      setInventoryItem([...inventoryItem, formData]);
-      await API.graphql({ query: createInventoryItemMutation, variables: { input: formData } });
+      setJob([...job, formData]);
+      var jobData = { name: 'HC Job', startDate: '2021-04-03', endDate: '2021-04-11', inventory: [{id:'69cb79dc-c05f-4772-910c-6390a7dd1a44'}, {id:'92f252d9-8887-4113-9f7e-3482d9e3b397'}]};
+      await API.graphql({ query: createJobMutation, variables: { input: jobData } });
 
       showConfirmation("Add Successful", "'" + formData.name + "' was added successfully")
     } catch (e) {
@@ -48,13 +49,13 @@ const NewInventoryItem = () => {
     setFormData(initialFormState);
   }
 
-  function returnToInventory() {
-    history.push("/inventory");  
+  function returnToJobs() {
+    history.push("/jobs");  
   }
 
   function showConfirmation(title, text) {
     var modalElement = document.getElementById('confirmationModal');
-    modalElement.addEventListener("hidden.coreui.modal", function () { history.push("/inventory"); });
+    modalElement.addEventListener("hidden.coreui.modal", function () { history.push("/jobs"); });
     var confirmationModal = new Modal(modalElement);
     document.getElementById('confirmationModalLabel').innerText = title;
     document.getElementById('confirmationModalText').innerText = text;
@@ -86,7 +87,7 @@ const NewInventoryItem = () => {
         <CCol xs="12" md="6">
           <CCard>
             <CCardHeader>
-              New Inventory Item
+              New Job
             </CCardHeader>
             <CCardBody>
               <CForm action="" method="post" className="form-horizontal">
@@ -97,55 +98,35 @@ const NewInventoryItem = () => {
                   <CCol xs="12" md="9">
                     <CInput type="name" id="name" name="name" placeholder="Enter Name..." autoComplete="name"
                       onChange={e => setFormData({ ...formData, 'name': e.target.value })} value={formData.name} />
-                    <CFormText className="help-block">Please enter item name</CFormText>
+                    <CFormText className="help-block">Please enter job name</CFormText>
                   </CCol>
                 </CFormGroup>
                 <CFormGroup row>
                   <CCol md="3">
-                    <CLabel htmlFor="quantity">Quantity</CLabel>
+                    <CLabel htmlFor="startDate">Start Date</CLabel>
                   </CCol>
                   <CCol xs="12" md="9">
-                    <CInput type="quantity" id="quantity" name="quantity" placeholder="Enter Quantity..." autoComplete="quantity"
-                      onChange={e => setFormData({ ...formData, 'quantity': e.target.value })} value={formData.quantity} />
-                    <CFormText className="help-block">Please enter quantity</CFormText>
+                    <CInput type="startDate" id="startDate" name="startDate" placeholder="Enter Start Date..." autoComplete="startDate"
+                      onChange={e => setFormData({ ...formData, 'startDate': e.target.value })} value={formData.startDate} />
+                    <CFormText className="help-block">Please enter start date</CFormText>
                   </CCol>
                 </CFormGroup>
                 <CFormGroup row>
                   <CCol md="3">
-                    <CLabel htmlFor="description">Description</CLabel>
+                    <CLabel htmlFor="endDate">End Date</CLabel>
                   </CCol>
                   <CCol xs="12" md="9">
-                    <CInput type="description" id="description" name="description" placeholder="Enter Description..." autoComplete="description"
-                      onChange={e => setFormData({ ...formData, 'description': e.target.value })} value={formData.description} />
-                    <CFormText className="help-block">Please enter description</CFormText>
-                  </CCol>
-                </CFormGroup>
-                <CFormGroup row>
-                  <CCol md="3">
-                    <CLabel htmlFor="brand">Brand</CLabel>
-                  </CCol>
-                  <CCol xs="12" md="9">
-                    <CInput type="brand" id="brand" name="brand" placeholder="Enter Brand..." autoComplete="brand"
-                      onChange={e => setFormData({ ...formData, 'brand': e.target.value })} value={formData.brand} />
-                    <CFormText className="help-block">Please enter brand</CFormText>
-                  </CCol>
-                </CFormGroup>
-                <CFormGroup row>
-                  <CCol md="3">
-                    <CLabel htmlFor="brand">Category</CLabel>
-                  </CCol>
-                  <CCol xs="12" md="9">
-                    <CInput type="category" id="category" name="category" placeholder="Enter Category..." autoComplete="category"
-                      onChange={e => setFormData({ ...formData, 'category': e.target.value })} value={formData.category} />
-                    <CFormText className="help-block">Please enter category</CFormText>
+                    <CInput type="endDate" id="endDate" name="endDate" placeholder="Enter End Date..." autoComplete="endDate"
+                      onChange={e => setFormData({ ...formData, 'endDate': e.target.value })} value={formData.endDate} />
+                    <CFormText className="help-block">Please enter end date</CFormText>
                   </CCol>
                 </CFormGroup>
               </CForm>
             </CCardBody>
             <CCardFooter>
-              <CButton type="cancel" size="sm" color="danger" onClick={returnToInventory}><CIcon name="cil-ban" /> Cancel</CButton>
+              <CButton type="cancel" size="sm" color="danger" onClick={returnToJobs}><CIcon name="cil-ban" /> Cancel</CButton>
               <CButton type="clear" size="sm" color="info" onClick={resetForm}><CIcon name="cil-scrubber" /> Clear</CButton>
-              <span class="span-right"><CButton type="submit" size="sm" color="success" onClick={createInventoryItem}><CIcon name="cil-check-circle" /> Submit</CButton></span>
+              <span class="span-right"><CButton type="submit" size="sm" color="success" onClick={createJob}><CIcon name="cil-check-circle" /> Submit</CButton></span>
             </CCardFooter>
           </CCard>
 
@@ -155,4 +136,4 @@ const NewInventoryItem = () => {
   )
 }
 
-export default NewInventoryItem
+export default NewJob

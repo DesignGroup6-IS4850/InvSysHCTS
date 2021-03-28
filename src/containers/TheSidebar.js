@@ -17,8 +17,6 @@ import CIcon from '@coreui/icons-react'
 // sidebar nav config
 import navigation from './_nav'
 
-import { AmplifySignOut } from '@aws-amplify/ui-react'
-
 const TheSidebar = () => {
   const dispatch = useDispatch()
   const show = useSelector(state => state.sidebarShow)
@@ -51,7 +49,6 @@ const TheSidebar = () => {
             CSidebarNavTitle
           }}
         />
-        <AmplifySignOut />
       </CSidebarNav>
       <CSidebarMinimizer className="c-d-md-down-none"/>
     </CSidebar>

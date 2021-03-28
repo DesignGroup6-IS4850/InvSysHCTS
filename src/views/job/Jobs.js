@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { useHistory, useLocation, Link } from 'react-router-dom'
 import {
-  CBadge,
   CCard,
   CCardBody,
   CCardHeader,
@@ -11,21 +10,19 @@ import {
   CPagination
 } from '@coreui/react'
 
-// import inventoryData from './InventoryData'
-
 import { API } from 'aws-amplify';
-import { listInventoryItems } from '../../graphql/queries';
+import { listJobs } from '../../graphql/queries';
 
-const Inventory = () => {
+const Jobs = () => {
   const history = useHistory()
   const queryPage = useLocation().search.match(/page=([0-9]+)/, '')
   const currentPage = Number(queryPage && queryPage[1] ? queryPage[1] : 1)
   const [page, setPage] = useState(currentPage)
 
-  const [inventoryItems, setInventoryItems] = useState([]);
+  const [jobs, setJobs] = useState([]);
 
   const pageChange = newPage => {
-    currentPage !== newPage && history.push(`/inventory?page=${newPage}`)
+    currentPage !== newPage && history.push(`/job?page=${newPage}`)
   }
 
   useEffect(() => {
@@ -33,12 +30,12 @@ const Inventory = () => {
   }, [currentPage, page])
 
   useEffect(() => {
-    fetchInventoryItems();
+    fetchJobs();
   }, []);
 
-  async function fetchInventoryItems() {
-    const apiData = await API.graphql({ query: listInventoryItems });
-    setInventoryItems(apiData.data.listInventoryItems.items);
+  async function fetchJobs() {
+    const apiData = await API.graphql({ query: listJobs });
+    setJobs(apiData.data.listJobs.items);
   }
 
   return (
@@ -46,22 +43,22 @@ const Inventory = () => {
       <CCol xl={12}>
         <CCard>
           <CCardHeader>
-            Inventory
+            Jobs
           </CCardHeader>
           <CCardBody>
-          <Link to="/newinventoryitem">Add New Inventory Item</Link>
+          <Link to="/newjob">Add New Job</Link>
           <CDataTable
-            items={inventoryItems}
+            items={jobs}
             fields={[
               { key: 'name', _classes: 'font-weight-bold' },
-              'quantity', 'description', 'brand', 'category'
+              'startDate', 'endDate'
             ]}
             hover
             striped
             itemsPerPage={8}
             activePage={page}
             clickableRows
-            onRowClick={(item) => history.push(`/inventory/${item.id}`)}
+            onRowClick={(item) => history.push(`/job/${item.id}`)}
           />
           <CPagination
             activePage={page}
@@ -77,4 +74,4 @@ const Inventory = () => {
   )
 }
 
-export default Inventory
+export default Jobs

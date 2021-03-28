@@ -15,7 +15,7 @@ import {
   CRow
 } from '@coreui/react'
 import CIcon from '@coreui/icons-react'
-import { Auth } from "aws-amplify";
+// import { Auth } from "aws-amplify";
 
 const Login = () => {
   return (

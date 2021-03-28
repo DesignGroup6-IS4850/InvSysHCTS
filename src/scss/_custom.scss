@@ -2,6 +2,21 @@
 .c-sidebar {
     color: #fff;
     background: #0ac7ef;
+
+    .c-sidebar-nav-link {
+      color: #fff;
+
+      .c-sidebar-nav-icon {
+        color: #fff;
+      }
+
+      &:hover {
+        text-decoration: none;
+        color: #fff;
+        background: #e50e0b;
+      }
+  }
+
   }
 
   :root{

@@ -13,7 +13,7 @@ import {
   CCallout
 } from '@coreui/react'
 import CIcon from '@coreui/icons-react'
-import { cifAU } from '@coreui/icons';
+// import { cifAU } from '@coreui/icons';
 
 import MainChartExample from '../charts/MainChartExample.js'
 

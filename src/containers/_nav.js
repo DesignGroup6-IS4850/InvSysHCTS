@@ -16,7 +16,13 @@ const _nav =  [
     _tag: 'CSidebarNavItem',
     name: 'Inventory',
     to: '/inventory',
-    icon: 'cil-layers',
+    icon: 'cil-barcode',
+  },
+  {
+    _tag: 'CSidebarNavItem',
+    name: 'Jobs',
+    to: '/jobs',
+    icon: 'cil-briefcase',
   },
   {
     _tag: 'CSidebarNavItem',

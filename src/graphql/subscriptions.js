@@ -46,3 +46,162 @@ export const onDeleteInventoryItem = /* GraphQL */ `
     }
   }
 `;
+export const onCreateJob = /* GraphQL */ `
+  subscription OnCreateJob {
+    onCreateJob {
+      id
+      name
+      startDate
+      endDate
+      inventory {
+        items {
+          id
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
+      _version
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const onUpdateJob = /* GraphQL */ `
+  subscription OnUpdateJob {
+    onUpdateJob {
+      id
+      name
+      startDate
+      endDate
+      inventory {
+        items {
+          id
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
+      _version
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const onDeleteJob = /* GraphQL */ `
+  subscription OnDeleteJob {
+    onDeleteJob {
+      id
+      name
+      startDate
+      endDate
+      inventory {
+        items {
+          id
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
+      _version
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const onCreateJobInventory = /* GraphQL */ `
+  subscription OnCreateJobInventory {
+    onCreateJobInventory {
+      id
+      job {
+        id
+        name
+        startDate
+        endDate
+        inventory {
+          nextToken
+        }
+        _version
+        createdAt
+        updatedAt
+      }
+      inventoryItem {
+        id
+        name
+        quantity
+        description
+        brand
+        category
+        _version
+        createdAt
+        updatedAt
+      }
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const onUpdateJobInventory = /* GraphQL */ `
+  subscription OnUpdateJobInventory {
+    onUpdateJobInventory {
+      id
+      job {
+        id
+        name
+        startDate
+        endDate
+        inventory {
+          nextToken
+        }
+        _version
+        createdAt
+        updatedAt
+      }
+      inventoryItem {
+        id
+        name
+        quantity
+        description
+        brand
+        category
+        _version
+        createdAt
+        updatedAt
+      }
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const onDeleteJobInventory = /* GraphQL */ `
+  subscription OnDeleteJobInventory {
+    onDeleteJobInventory {
+      id
+      job {
+        id
+        name
+        startDate
+        endDate
+        inventory {
+          nextToken
+        }
+        _version
+        createdAt
+        updatedAt
+      }
+      inventoryItem {
+        id
+        name
+        quantity
+        description
+        brand
+        category
+        _version
+        createdAt
+        updatedAt
+      }
+      createdAt
+      updatedAt
+    }
+  }
+`;

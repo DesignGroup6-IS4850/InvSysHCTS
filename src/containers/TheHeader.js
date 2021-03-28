@@ -8,20 +8,21 @@ import {
   CHeaderNavItem,
   CHeaderNavLink,
   CSubheader,
-  CBreadcrumbRouter,
-  CLink
+  CBreadcrumbRouter
 } from '@coreui/react'
 import CIcon from '@coreui/icons-react'
 
 // routes config
 import routes from '../routes'
 
-import { 
+/* import { 
   TheHeaderDropdown,
   TheHeaderDropdownMssg,
   TheHeaderDropdownNotif,
   TheHeaderDropdownTasks
-}  from './index'
+}  from './index' */
+
+import { AmplifySignOut } from '@aws-amplify/ui-react'
 
 const TheHeader = () => {
   const dispatch = useDispatch()
@@ -63,21 +64,24 @@ const TheHeader = () => {
         <CHeaderNavItem className="px-3">
           <CHeaderNavLink to="/calendar">Calendar</CHeaderNavLink>
         </CHeaderNavItem>
+        <CHeaderNavItem className="px-3">
+          <AmplifySignOut />
+        </CHeaderNavItem>
       </CHeaderNav>
 
-      <CHeaderNav className="px-3">
+{/*       <CHeaderNav className="px-3">
         <TheHeaderDropdownNotif/>
         <TheHeaderDropdownTasks/>
         <TheHeaderDropdownMssg/>
         <TheHeaderDropdown/>
-      </CHeaderNav>
+      </CHeaderNav> */}
 
       <CSubheader className="px-3 justify-content-between">
         <CBreadcrumbRouter 
           className="border-0 c-subheader-nav m-0 px-0 px-md-3" 
           routes={routes} 
         />
-          <div className="d-md-down-none mfe-2 c-subheader-nav">
+{/*           <div className="d-md-down-none mfe-2 c-subheader-nav">
             <CLink className="c-subheader-nav-link"href="#">
               <CIcon name="cil-speech" alt="Settings" />
             </CLink>
@@ -91,7 +95,7 @@ const TheHeader = () => {
             <CLink className="c-subheader-nav-link" href="#">
               <CIcon name="cil-settings" alt="Settings" />&nbsp;Settings
             </CLink>
-          </div>
+          </div> */}
       </CSubheader>
     </CHeader>
   )

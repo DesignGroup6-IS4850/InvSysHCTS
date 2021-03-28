@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { HashRouter, Route, Switch } from 'react-router-dom';
 import './scss/style.scss';
-import { withAuthenticator, AmplifySignOut } from '@aws-amplify/ui-react'
+import { withAuthenticator} from '@aws-amplify/ui-react'
 
 const loading = (
   <div className="pt-3 text-center">
