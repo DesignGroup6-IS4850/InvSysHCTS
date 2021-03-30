@@ -5,6 +5,7 @@ type InventoryItem @model {
   description: String
   brand: String
   category: String
+  jobs: [JobInventory] @connection(name:"InventoryJob")
   _version: Int
 }
 
@@ -13,12 +14,13 @@ type Job @model {
   name: String!
   startDate: String!
   endDate: String!
-  inventory: [JobInventory!]! @connection(name:"JobInventoryItem")
+  inventory: [JobInventory] @connection(name:"JobInventory")
   _version: Int
 }
 
 type JobInventory @model {
   id: ID!
-  job: Job! @connection(name:"JobInventoryItem")
-  inventoryItem: InventoryItem!
+  job: Job @connection(name:"JobInventory")
+  inventoryItem: InventoryItem @connection(name:"InventoryJob")
 }
+

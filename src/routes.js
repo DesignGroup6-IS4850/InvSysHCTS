@@ -43,6 +43,7 @@ const NewInventoryItem = React.lazy(() => import('./views/inventory/NewInventory
 const Calendar = React.lazy(() => import('./views/calendar/Calendar'));
 const Jobs = React.lazy(() => import('./views/job/Jobs'));
 const NewJob = React.lazy(() => import('./views/job/NewJob'));
+const Job = React.lazy(() => import('./views/job/Job'));
 
 
 const routes = [
@@ -92,6 +93,7 @@ const routes = [
   { path: '/newinventoryitem', exact: true, name: 'New Inventory Item', component: NewInventoryItem },
   { path: '/jobs', exact: true, name: 'Jobs', component: Jobs },
   { path: '/newjob', exact: true, name: 'New Job', component: NewJob },
+  { path: '/job/:id', exact: true, name: 'Job Details', component: Job },
 ];
 
 export default routes;

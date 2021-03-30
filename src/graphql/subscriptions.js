@@ -10,6 +10,14 @@ export const onCreateInventoryItem = /* GraphQL */ `
       description
       brand
       category
+      jobs {
+        items {
+          id
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
       _version
       createdAt
       updatedAt
@@ -25,6 +33,14 @@ export const onUpdateInventoryItem = /* GraphQL */ `
       description
       brand
       category
+      jobs {
+        items {
+          id
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
       _version
       createdAt
       updatedAt
@@ -40,6 +56,14 @@ export const onDeleteInventoryItem = /* GraphQL */ `
       description
       brand
       category
+      jobs {
+        items {
+          id
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
       _version
       createdAt
       updatedAt
@@ -132,6 +156,9 @@ export const onCreateJobInventory = /* GraphQL */ `
         description
         brand
         category
+        jobs {
+          nextToken
+        }
         _version
         createdAt
         updatedAt
@@ -164,6 +191,9 @@ export const onUpdateJobInventory = /* GraphQL */ `
         description
         brand
         category
+        jobs {
+          nextToken
+        }
         _version
         createdAt
         updatedAt
@@ -196,6 +226,9 @@ export const onDeleteJobInventory = /* GraphQL */ `
         description
         brand
         category
+        jobs {
+          nextToken
+        }
         _version
         createdAt
         updatedAt

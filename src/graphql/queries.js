@@ -10,6 +10,14 @@ export const getInventoryItem = /* GraphQL */ `
       description
       brand
       category
+      jobs {
+        items {
+          id
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
       _version
       createdAt
       updatedAt
@@ -30,6 +38,9 @@ export const listInventoryItems = /* GraphQL */ `
         description
         brand
         category
+        jobs {
+          nextToken
+        }
         _version
         createdAt
         updatedAt
@@ -105,6 +116,9 @@ export const getJobInventory = /* GraphQL */ `
         description
         brand
         category
+        jobs {
+          nextToken
+        }
         _version
         createdAt
         updatedAt
@@ -147,6 +161,33 @@ export const listJobInventorys = /* GraphQL */ `
         updatedAt
       }
       nextToken
+    }
+  }
+`;
+export const getJobWithInventory = /* GraphQL */ `
+  query GetJob($id: ID!) {
+    getJob(id: $id) {
+      id
+      name
+      startDate
+      endDate
+      inventory {
+        items {
+          id
+          createdAt
+          updatedAt
+          inventoryItem {
+            name
+            quantity
+            updatedAt
+            createdAt
+          }
+        }
+        nextToken
+      }
+      _version
+      createdAt
+      updatedAt
     }
   }
 `;

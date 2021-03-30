@@ -56,8 +56,12 @@ const Jobs = () => {
             hover
             striped
             itemsPerPage={8}
+            itemsPerPageSelect
             activePage={page}
             clickableRows
+            columnFilter
+            tableFilter
+            sorter
             onRowClick={(item) => history.push(`/job/${item.id}`)}
           />
           <CPagination

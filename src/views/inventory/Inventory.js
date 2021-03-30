@@ -8,7 +8,8 @@ import {
   CCol,
   CDataTable,
   CRow,
-  CPagination
+  CPagination,
+  CButton
 } from '@coreui/react'
 
 // import inventoryData from './InventoryData'
@@ -59,8 +60,12 @@ const Inventory = () => {
             hover
             striped
             itemsPerPage={8}
+            itemsPerPageSelect
             activePage={page}
             clickableRows
+            columnFilter
+            tableFilter
+            sorter
             onRowClick={(item) => history.push(`/inventory/${item.id}`)}
           />
           <CPagination

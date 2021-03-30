@@ -1,6 +1,6 @@
 projects:
-  inventoryapp:
-    schemaPath: src/graphql/schema.json
+  invsyshcts:
+    schemaPath: amplify/backend/api/invsyshcts/build/schema.graphql
     includes:
       - src/graphql/**/*.js
     excludes:

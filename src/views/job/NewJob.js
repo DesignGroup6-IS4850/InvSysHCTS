@@ -16,6 +16,7 @@ import {
 import CIcon from '@coreui/icons-react'
 import { API } from 'aws-amplify';
 import { createJob as createJobMutation } from '../../graphql/mutations';
+import { createJobInventory as createJobInventoryMutation } from '../../graphql/mutations';
 
 import { useHistory } from "react-router-dom";
 
@@ -33,16 +34,25 @@ const NewJob = () => {
     if (!formData.name) return;
 
     try {
-      setJob([...job, formData]);
-      var jobData = { name: 'HC Job', startDate: '2021-04-03', endDate: '2021-04-11', inventory: [{id:'69cb79dc-c05f-4772-910c-6390a7dd1a44'}, {id:'92f252d9-8887-4113-9f7e-3482d9e3b397'}]};
-      await API.graphql({ query: createJobMutation, variables: { input: jobData } });
-
-      showConfirmation("Add Successful", "'" + formData.name + "' was added successfully")
+        setJob([...job, formData]);
+        const result = await API.graphql({ query: createJobMutation, variables: { input: formData } });
+        const jobId = result.data.createJob.id;
+        console.log("Added Job: " + jobId);
+        addInventoryToJob(jobId);
+        showConfirmation("Add Successful", "'" + formData.name + "' was added successfully")
     } catch (e) {
       console.log(e);
     }
 
     setFormData(initialFormState);
+  }
+
+  async function addInventoryToJob(jobId) {
+    try {
+        await API.graphql({ query: createJobInventoryMutation, variables: { input: { jobInventoryJobId: jobId, jobInventoryInventoryItemId: '16c5d295-76ae-4da0-983a-8b4b56c9662d'}}});
+      } catch (e) {
+        console.log(e);
+      }      
   }
 
   function resetForm() {
@@ -64,20 +74,20 @@ const NewJob = () => {
 
   return (
     <>
-      <div class="modal fade" id="confirmationModal" tabindex="-1" role="dialog" aria-labelledby="confirmationModalLabel" aria-hidden="true">
-        <div class="modal-dialog" role="document">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h5 class="modal-title" id="confirmationModalLabel"></h5>
-              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+      <div className="modal fade" id="confirmationModal" tabIndex="-1" role="dialog" aria-labelledby="confirmationModalLabel" aria-hidden="true">
+        <div className="modal-dialog" role="document">
+          <div className="modal-content">
+            <div className="modal-header">
+              <h5 className="modal-title" id="confirmationModalLabel"></h5>
+              <button type="button" className="close" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
               </button>
             </div>
-            <div class="modal-body">
+            <div className="modal-body">
               <label id="confirmationModalText"></label>
             </div>
-            <div class="modal-footer">
-              <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            <div className="modal-footer">
+              <button type="button" className="btn btn-secondary" data-dismiss="modal">Close</button>
             </div>
           </div>
         </div>

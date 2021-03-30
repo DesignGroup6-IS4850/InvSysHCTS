@@ -13,6 +13,14 @@ export const createInventoryItem = /* GraphQL */ `
       description
       brand
       category
+      jobs {
+        items {
+          id
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
       _version
       createdAt
       updatedAt
@@ -31,6 +39,14 @@ export const updateInventoryItem = /* GraphQL */ `
       description
       brand
       category
+      jobs {
+        items {
+          id
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
       _version
       createdAt
       updatedAt
@@ -49,6 +65,14 @@ export const deleteInventoryItem = /* GraphQL */ `
       description
       brand
       category
+      jobs {
+        items {
+          id
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
       _version
       createdAt
       updatedAt
@@ -153,6 +177,9 @@ export const createJobInventory = /* GraphQL */ `
         description
         brand
         category
+        jobs {
+          nextToken
+        }
         _version
         createdAt
         updatedAt
@@ -188,6 +215,9 @@ export const updateJobInventory = /* GraphQL */ `
         description
         brand
         category
+        jobs {
+          nextToken
+        }
         _version
         createdAt
         updatedAt
@@ -223,6 +253,9 @@ export const deleteJobInventory = /* GraphQL */ `
         description
         brand
         category
+        jobs {
+          nextToken
+        }
         _version
         createdAt
         updatedAt
