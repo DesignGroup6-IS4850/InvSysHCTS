@@ -125,7 +125,7 @@ const InventoryItem = ({ match }) => {
                   </CCol>
                   <CCol xs="12" md="9">
                     <CInput type="quantity" id="quantity" name="quantity" placeholder="Enter Quantity..." autoComplete="quantity"
-                      onChange={e => setInventoryItem({ ...inventoryItem, 'quantity': e.target.value })} value={inventoryItem.quantity} />
+                      onChange={e => setInventoryItem({ ...inventoryItem, 'quantity': parseInt(e.target.value, 10) })} value={inventoryItem.quantity} />
                   </CCol>
                 </CFormGroup>
                 <CFormGroup row>

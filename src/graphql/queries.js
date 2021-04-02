@@ -13,6 +13,7 @@ export const getInventoryItem = /* GraphQL */ `
       jobs {
         items {
           id
+          jobQuantity
           createdAt
           updatedAt
         }
@@ -59,6 +60,7 @@ export const getJob = /* GraphQL */ `
       inventory {
         items {
           id
+          jobQuantity
           createdAt
           updatedAt
         }
@@ -97,6 +99,7 @@ export const getJobInventory = /* GraphQL */ `
   query GetJobInventory($id: ID!) {
     getJobInventory(id: $id) {
       id
+      jobQuantity
       job {
         id
         name
@@ -137,6 +140,7 @@ export const listJobInventorys = /* GraphQL */ `
     listJobInventorys(filter: $filter, limit: $limit, nextToken: $nextToken) {
       items {
         id
+        jobQuantity
         job {
           id
           name
@@ -174,13 +178,11 @@ export const getJobWithInventory = /* GraphQL */ `
       inventory {
         items {
           id
+          jobQuantity
           createdAt
           updatedAt
           inventoryItem {
             name
-            quantity
-            updatedAt
-            createdAt
           }
         }
         nextToken

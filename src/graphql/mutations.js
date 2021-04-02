@@ -16,6 +16,7 @@ export const createInventoryItem = /* GraphQL */ `
       jobs {
         items {
           id
+          jobQuantity
           createdAt
           updatedAt
         }
@@ -42,6 +43,7 @@ export const updateInventoryItem = /* GraphQL */ `
       jobs {
         items {
           id
+          jobQuantity
           createdAt
           updatedAt
         }
@@ -68,6 +70,7 @@ export const deleteInventoryItem = /* GraphQL */ `
       jobs {
         items {
           id
+          jobQuantity
           createdAt
           updatedAt
         }
@@ -92,6 +95,7 @@ export const createJob = /* GraphQL */ `
       inventory {
         items {
           id
+          jobQuantity
           createdAt
           updatedAt
         }
@@ -116,6 +120,7 @@ export const updateJob = /* GraphQL */ `
       inventory {
         items {
           id
+          jobQuantity
           createdAt
           updatedAt
         }
@@ -140,6 +145,7 @@ export const deleteJob = /* GraphQL */ `
       inventory {
         items {
           id
+          jobQuantity
           createdAt
           updatedAt
         }
@@ -158,6 +164,7 @@ export const createJobInventory = /* GraphQL */ `
   ) {
     createJobInventory(input: $input, condition: $condition) {
       id
+      jobQuantity
       job {
         id
         name
@@ -196,6 +203,7 @@ export const updateJobInventory = /* GraphQL */ `
   ) {
     updateJobInventory(input: $input, condition: $condition) {
       id
+      jobQuantity
       job {
         id
         name
@@ -234,6 +242,7 @@ export const deleteJobInventory = /* GraphQL */ `
   ) {
     deleteJobInventory(input: $input, condition: $condition) {
       id
+      jobQuantity
       job {
         id
         name

@@ -30,3 +30,25 @@
     .span-right {
       float: right;
     }
+
+    table {
+      width: 100%;
+    }
+    th.name {
+      width: 50%
+    }
+    th.quantity {
+      width: 10%;
+    }
+    th.buttons {
+      width: 40%;
+    }
+
+    .fixed-header tbody{
+      display:block;
+      overflow:auto;
+      height:100px;
+    }
+    .fixed-header thead tr th{
+      display:block;
+    }

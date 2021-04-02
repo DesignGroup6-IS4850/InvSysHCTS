@@ -13,6 +13,7 @@ export const onCreateInventoryItem = /* GraphQL */ `
       jobs {
         items {
           id
+          jobQuantity
           createdAt
           updatedAt
         }
@@ -36,6 +37,7 @@ export const onUpdateInventoryItem = /* GraphQL */ `
       jobs {
         items {
           id
+          jobQuantity
           createdAt
           updatedAt
         }
@@ -59,6 +61,7 @@ export const onDeleteInventoryItem = /* GraphQL */ `
       jobs {
         items {
           id
+          jobQuantity
           createdAt
           updatedAt
         }
@@ -80,6 +83,7 @@ export const onCreateJob = /* GraphQL */ `
       inventory {
         items {
           id
+          jobQuantity
           createdAt
           updatedAt
         }
@@ -101,6 +105,7 @@ export const onUpdateJob = /* GraphQL */ `
       inventory {
         items {
           id
+          jobQuantity
           createdAt
           updatedAt
         }
@@ -122,6 +127,7 @@ export const onDeleteJob = /* GraphQL */ `
       inventory {
         items {
           id
+          jobQuantity
           createdAt
           updatedAt
         }
@@ -137,6 +143,7 @@ export const onCreateJobInventory = /* GraphQL */ `
   subscription OnCreateJobInventory {
     onCreateJobInventory {
       id
+      jobQuantity
       job {
         id
         name
@@ -172,6 +179,7 @@ export const onUpdateJobInventory = /* GraphQL */ `
   subscription OnUpdateJobInventory {
     onUpdateJobInventory {
       id
+      jobQuantity
       job {
         id
         name
@@ -207,6 +215,7 @@ export const onDeleteJobInventory = /* GraphQL */ `
   subscription OnDeleteJobInventory {
     onDeleteJobInventory {
       id
+      jobQuantity
       job {
         id
         name

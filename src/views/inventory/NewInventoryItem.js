@@ -106,7 +106,7 @@ const NewInventoryItem = () => {
                   </CCol>
                   <CCol xs="12" md="9">
                     <CInput type="quantity" id="quantity" name="quantity" placeholder="Enter Quantity..." autoComplete="quantity"
-                      onChange={e => setFormData({ ...formData, 'quantity': e.target.value })} value={formData.quantity} />
+                      onChange={e => setFormData({ ...formData, 'quantity': parseInt(e.target.value, 10) })} value={formData.quantity} />
                     <CFormText className="help-block">Please enter quantity</CFormText>
                   </CCol>
                 </CFormGroup>

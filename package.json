@@ -26,6 +26,7 @@
     "@aws-amplify/ui-react": "^1.0.5",
     "@coreui/chartjs": "^2.0.0",
     "@coreui/coreui": "^3.4.0",
+    "@coreui/coreui-pro": "^3.4.1",
     "@coreui/icons": "^2.0.0-rc.0",
     "@coreui/icons-react": "^1.0.2",
     "@coreui/react": "^3.4.0",
