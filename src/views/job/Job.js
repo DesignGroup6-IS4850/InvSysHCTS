@@ -16,7 +16,7 @@ import {
     CDataTable
 } from '@coreui/react'
 
-import { API } from 'aws-amplify';
+import { API, graphqlOperation } from 'aws-amplify';
 import * as queries from '../../graphql/queries';
 import { updateJob as updateJobMutation, deleteJob as deleteJobMutation } from '../../graphql/mutations';
 import {
@@ -94,7 +94,37 @@ const Job = ({ match }) => {
 
     async function fetchJob(id) {
         console.log("entered job");
-        const apiData = await API.graphql({ query: queries.getJobWithInventory, variables: { id: id } });
+        // const apiData = await API.graphql({ query: queries.getJobWithInventory, variables: { id: id } });
+        const apiData = await API.graphql(graphqlOperation(` 
+        query GetJob($id: ID!) {
+            getJob(id: $id) {
+              id
+              name
+              startDate
+              endDate
+              inventory {
+                items {
+                  id
+                  jobQuantity
+                  createdAt
+                  updatedAt
+                  inventoryItem {
+                    id
+                    name
+                    brand
+                    description
+                    category
+                  }
+                }
+                nextToken
+              }
+              _version
+              createdAt
+              updatedAt
+            }
+          }
+      `, { id: id}) );
+
         console.log("Current version: " + apiData.data.getJob._version);
         console.log("Current job id: " + apiData.data.getJob.id);
 
@@ -104,13 +134,13 @@ const Job = ({ match }) => {
         var materialListArray = new Array();
         if (apiData.data.getJob.inventory.items != null) {
             apiData.data.getJob.inventory.items.map(item => {
-                if ((item != null) && (item.inventoryItem !=null)) {
-                materialListArray.push(
-                    {
-                        id: item.id, name: item.inventoryItem.name,
-                        quantity: item.jobQuantity, brand: item.inventoryItem.brand,
-                        category: item.inventoryItem.category
-                    })
+                if ((item != null) && (item.inventoryItem != null)) {
+                    materialListArray.push(
+                        {
+                            id: item.id, name: item.inventoryItem.name,
+                            quantity: item.jobQuantity, brand: item.inventoryItem.brand,
+                            category: item.inventoryItem.category
+                        })
                 }
             });
         }
