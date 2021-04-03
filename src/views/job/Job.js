@@ -19,11 +19,14 @@ import {
 import { API } from 'aws-amplify';
 import * as queries from '../../graphql/queries';
 import { updateJob as updateJobMutation, deleteJob as deleteJobMutation} from '../../graphql/mutations';
-import {updateJobInventory as updateJobInventoryMutation} from '../../graphql/mutations';
+import {updateJobInventory as updateJobInventoryMutation, 
+        createJobInventory as createJobInventoryMutation, 
+        deleteJobInventory as deleteJobInventoryMutation} from '../../graphql/mutations';
 import { useHistory, useLocation } from "react-router-dom";
 import { listInventoryItems } from '../../graphql/queries';
 
 import { Modal } from '@coreui/coreui';
+import $ from "jquery";
 
 const Job = ({ match }) => {
 
@@ -146,7 +149,54 @@ const Job = ({ match }) => {
                 }
             });
             showConfirmation("Update Successful", "'" + currentMaterialItem.name + "' was updated successfully")
-            var materialListTable = document.getElementById('materialListTable');
+        } catch (e) {
+            console.log(e);
+        }
+
+    }
+
+    async function addMaterialItem(jobId, inventoryId, quantity) {
+
+        try {
+            var apiData = await API.graphql({
+                query: createJobInventoryMutation, variables: {
+                    input: {
+                        jobInventoryJobId: jobId,
+                        jobInventoryInventoryItemId: inventoryId,
+                        jobQuantity: quantity
+                    }
+                }
+            });
+            var inventoryItem = inventoryItems.find(item => item.id == inventoryId);
+            showConfirmation("Add Successful", "'" + inventoryItem.name + "' was added successfully")
+
+            materialList.push({id: apiData.data.createJobInventory.id, name: inventoryItem.name,
+                quantity: quantity, brand: inventoryItem.brand,
+                category: inventoryItem.category});
+
+            window.location.reload();
+
+        } catch (e) {
+            console.log(e);
+        }
+
+    }
+
+    async function removeMaterialItem() {
+
+        console.log("Item: " + currentMaterialItem.name + ", id: " + currentMaterialItem.id + ", quantity: " + currentMaterialItem.quantity);
+        try {
+            await API.graphql({
+                query: deleteJobInventoryMutation, variables: {
+                    input: {
+                        id: currentMaterialItem.id
+                    }
+                }
+            });
+            showConfirmation("Remove Successful", "'" + currentMaterialItem.name + "' was removed successfully");
+            
+            window.location.reload();
+
         } catch (e) {
             console.log(e);
         }
@@ -189,15 +239,14 @@ const Job = ({ match }) => {
         setCurrentMaterialItem(item);
         setNewQuantity(item.quantity);
         var modalElement = document.getElementById('editModal');
-        var editModal = new Modal(modalElement);
         document.getElementById('editModalTitle').innerHTML = "Edit " + item.name + "?";
         document.getElementById('itemNameText').innerHTML = item.name;
         toggleEditModal();
     }
 
     function launchRemoveModal(item) {
+        setCurrentMaterialItem(item);
         var modalElement = document.getElementById('removeModal');
-        var removeModal = new Modal(modalElement);
         document.getElementById('removeModalTitle').innerHTML = "Remove " + item.name + "?";
         document.getElementById('removeModalText').innerHTML = "Are you sure you wish to remove " + item.name + "?";
         toggleRemoveModal();
@@ -208,13 +257,7 @@ const Job = ({ match }) => {
     }
 
     function okRemoveModal() {
-        /*         var inventoryItem = inventoryItems.find(item => item.id == currentItem.id);
-                if (inventoryItem != null) {
-                    inventoryItem.change = "delete";
-                    itemsToDelete.push(inventoryItem);
-                    let pos = inventoryItems.indexOf(inventoryItem);
-                    inventoryItems.splice(pos, 1);
-                } */
+        removeMaterialItem();
         toggleRemoveModal();
     }
 
@@ -223,11 +266,11 @@ const Job = ({ match }) => {
     }
 
     function okAddModal() {
-        /*         var inventoryItem = allInventoryItems.find(item => item.id == newInventoryItemId);
-                if (inventoryItem != null) {
-                    var selectedInventoryItem = {id:inventoryItem.id, name:inventoryItem.name, quantity:newQuantity, change:'new'};
-                    inventoryItems.push(selectedInventoryItem);
-                }       */
+        var selectInventory = document.getElementById("selectInventory");
+        var addQuantityInput = document.getElementById("addQuantityInput");
+        console.log("Select Inventory: " + selectInventory.value);
+        console.log("Add Quantity Input: " + addQuantityInput.value);
+        addMaterialItem(job.id, selectInventory.value, parseInt(addQuantityInput.value, 10) );
         toggleAddModal();
     }
 
@@ -236,11 +279,6 @@ const Job = ({ match }) => {
     }
 
     function okEditModal() {
-        /*         var inventoryItem = allInventoryItems.find(item => item.id == newInventoryItemId);
-                if (inventoryItem != null) {
-                    var selectedInventoryItem = {id:inventoryItem.id, name:inventoryItem.name, quantity:newQuantity, change:'new'};
-                    inventoryItems.push(selectedInventoryItem);
-                }       */
         updateMaterialItem();
         toggleEditModal();
     }
@@ -416,7 +454,6 @@ const Job = ({ match }) => {
                                 <CFormGroup row>
                                     <CCol id="tableCol">
                                         <CDataTable 
-                                            id="materialListTable" 
                                             items={materialList}
                                             fields={fields}
                                             columnFilter

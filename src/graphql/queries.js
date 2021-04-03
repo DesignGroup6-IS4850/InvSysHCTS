@@ -182,7 +182,11 @@ export const getJobWithInventory = /* GraphQL */ `
           createdAt
           updatedAt
           inventoryItem {
+            id
             name
+            brand
+            description
+            category
           }
         }
         nextToken
