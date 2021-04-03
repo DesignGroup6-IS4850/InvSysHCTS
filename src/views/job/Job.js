@@ -18,10 +18,12 @@ import {
 
 import { API } from 'aws-amplify';
 import * as queries from '../../graphql/queries';
-import { updateJob as updateJobMutation, deleteJob as deleteJobMutation} from '../../graphql/mutations';
-import {updateJobInventory as updateJobInventoryMutation, 
-        createJobInventory as createJobInventoryMutation, 
-        deleteJobInventory as deleteJobInventoryMutation} from '../../graphql/mutations';
+import { updateJob as updateJobMutation, deleteJob as deleteJobMutation } from '../../graphql/mutations';
+import {
+    updateJobInventory as updateJobInventoryMutation,
+    createJobInventory as createJobInventoryMutation,
+    deleteJobInventory as deleteJobInventoryMutation
+} from '../../graphql/mutations';
 import { useHistory, useLocation } from "react-router-dom";
 import { listInventoryItems } from '../../graphql/queries';
 
@@ -100,14 +102,18 @@ const Job = ({ match }) => {
         setJob(apiData.data.getJob);
 
         var materialListArray = new Array();
-        apiData.data.getJob.inventory.items.map(item => {
-            materialListArray.push(
-                {
-                    id: item.id, name: item.inventoryItem.name,
-                    quantity: item.jobQuantity, brand: item.inventoryItem.brand,
-                    category: item.inventoryItem.category
-                })
-        });
+        if (apiData.data.getJob.inventory.items != null) {
+            apiData.data.getJob.inventory.items.map(item => {
+                if ((item != null) && (item.inventoryItem !=null)) {
+                materialListArray.push(
+                    {
+                        id: item.id, name: item.inventoryItem.name,
+                        quantity: item.jobQuantity, brand: item.inventoryItem.brand,
+                        category: item.inventoryItem.category
+                    })
+                }
+            });
+        }
 
         setMaterialList(materialListArray);
 
@@ -170,9 +176,9 @@ const Job = ({ match }) => {
             var inventoryItem = inventoryItems.find(item => item.id == inventoryId);
             showConfirmation("Add Successful", "'" + inventoryItem.name + "' was added successfully")
 
-            materialList.push({id: apiData.data.createJobInventory.id, name: inventoryItem.name,
-                quantity: quantity, brand: inventoryItem.brand,
-                category: inventoryItem.category});
+            /*             materialList.push({id: apiData.data.createJobInventory.id, name: inventoryItem.name,
+                            quantity: quantity, brand: inventoryItem.brand,
+                            category: inventoryItem.category}); */
 
             window.location.reload();
 
@@ -194,7 +200,7 @@ const Job = ({ match }) => {
                 }
             });
             showConfirmation("Remove Successful", "'" + currentMaterialItem.name + "' was removed successfully");
-            
+
             window.location.reload();
 
         } catch (e) {
@@ -270,7 +276,7 @@ const Job = ({ match }) => {
         var addQuantityInput = document.getElementById("addQuantityInput");
         console.log("Select Inventory: " + selectInventory.value);
         console.log("Add Quantity Input: " + addQuantityInput.value);
-        addMaterialItem(job.id, selectInventory.value, parseInt(addQuantityInput.value, 10) );
+        addMaterialItem(job.id, selectInventory.value, parseInt(addQuantityInput.value, 10));
         toggleAddModal();
     }
 
@@ -379,8 +385,8 @@ const Job = ({ match }) => {
                                 <CLabel htmlFor="quantityText">Quantity</CLabel>
                             </CCol>
                             <CCol xs="12" md="9">
-                                <CInput id="quantityText" name="quantityText" placeholder="Enter Quantity..." 
-                                value={newQuantity} onChange={(event) => setNewQuantity(event.target.value)}/>
+                                <CInput id="quantityText" name="quantityText" placeholder="Enter Quantity..."
+                                    value={newQuantity} onChange={(event) => setNewQuantity(event.target.value)} />
                             </CCol>
                         </CFormGroup>
                     </CForm>
@@ -453,7 +459,7 @@ const Job = ({ match }) => {
                                 </CFormGroup>
                                 <CFormGroup row>
                                     <CCol id="tableCol">
-                                        <CDataTable 
+                                        <CDataTable
                                             items={materialList}
                                             fields={fields}
                                             columnFilter
@@ -478,7 +484,7 @@ const Job = ({ match }) => {
                                                     (item, index) => {
                                                         return (
                                                             <td className="py-2">
-                                                                <CButton type="button" size="sm" color="danger"  onClick={() => { launchRemoveModal(item) }}>
+                                                                <CButton type="button" size="sm" color="danger" onClick={() => { launchRemoveModal(item) }}>
                                                                     <CIcon name="cil-trash" /></CButton>
                                                             </td>
                                                         )
