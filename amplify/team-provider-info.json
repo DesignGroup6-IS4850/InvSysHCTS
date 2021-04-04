@@ -1,28 +1,20 @@
 {
-  "dev": {
+  "master": {
     "awscloudformation": {
-      "AuthRoleName": "amplify-invsyshcts-dev-172228-authRole",
-      "UnauthRoleArn": "arn:aws:iam::764153875601:role/amplify-invsyshcts-dev-172228-unauthRole",
-      "AuthRoleArn": "arn:aws:iam::764153875601:role/amplify-invsyshcts-dev-172228-authRole",
+      "AuthRoleName": "amplify-invsyshcts-master-35126-authRole",
+      "UnauthRoleArn": "arn:aws:iam::764153875601:role/amplify-invsyshcts-master-35126-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::764153875601:role/amplify-invsyshcts-master-35126-authRole",
       "Region": "us-east-1",
-      "DeploymentBucketName": "amplify-invsyshcts-dev-172228-deployment",
-      "UnauthRoleName": "amplify-invsyshcts-dev-172228-unauthRole",
-      "StackName": "amplify-invsyshcts-dev-172228",
-      "StackId": "arn:aws:cloudformation:us-east-1:764153875601:stack/amplify-invsyshcts-dev-172228/c0964110-8e81-11eb-82bb-0e449a166b2f",
-      "AmplifyAppId": "d1gexpj2nv4ohj"
-    }
-  },
-  "staging": {
-    "awscloudformation": {
-      "AuthRoleName": "amplify-invsyshcts-staging-181104-authRole",
-      "UnauthRoleArn": "arn:aws:iam::764153875601:role/amplify-invsyshcts-staging-181104-unauthRole",
-      "AuthRoleArn": "arn:aws:iam::764153875601:role/amplify-invsyshcts-staging-181104-authRole",
-      "Region": "us-east-1",
-      "DeploymentBucketName": "amplify-invsyshcts-staging-181104-deployment",
-      "UnauthRoleName": "amplify-invsyshcts-staging-181104-unauthRole",
-      "StackName": "amplify-invsyshcts-staging-181104",
-      "StackId": "arn:aws:cloudformation:us-east-1:764153875601:stack/amplify-invsyshcts-staging-181104/8ad58e80-8e88-11eb-af66-12bd192597a3",
-      "AmplifyAppId": "d2hi9nr7l4wmjw"
+      "DeploymentBucketName": "amplify-invsyshcts-master-35126-deployment",
+      "UnauthRoleName": "amplify-invsyshcts-master-35126-unauthRole",
+      "StackName": "amplify-invsyshcts-master-35126",
+      "StackId": "arn:aws:cloudformation:us-east-1:764153875601:stack/amplify-invsyshcts-master-35126/08677ea0-94f9-11eb-824d-0e880f83ff7f",
+      "AmplifyAppId": "d7fi9o17dr30v"
+    },
+    "categories": {
+      "auth": {
+        "solarinvpocf51faf07": {}
+      }
     }
   }
 }
