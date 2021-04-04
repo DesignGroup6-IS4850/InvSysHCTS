@@ -1,9 +1,0 @@
-type InventoryItem @model {
-  id: ID!
-  name: String!
-  quantity: Int!
-  description: String
-  brand: String
-  category: String
-  _version: Int
-}
