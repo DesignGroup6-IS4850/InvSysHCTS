@@ -28,7 +28,6 @@ import { useHistory, useLocation } from "react-router-dom";
 import { listInventoryItems } from '../../graphql/queries';
 
 import { Modal } from '@coreui/coreui';
-import $ from "jquery";
 
 const Job = ({ match }) => {
 

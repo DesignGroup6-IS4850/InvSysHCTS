@@ -116,7 +116,7 @@ const NewJob = () => {
                     <CLabel htmlFor="startDate">Start Date</CLabel>
                   </CCol>
                   <CCol xs="12" md="9">
-                    <CInput type="startDate" id="startDate" name="startDate" placeholder="Enter Start Date..." autoComplete="startDate"
+                    <CInput type="date" id="startDate" name="startDate" placeholder="Enter Start Date..." autoComplete="startDate"
                       onChange={e => setFormData({ ...formData, 'startDate': e.target.value })} value={formData.startDate} />
                     <CFormText className="help-block">Please enter start date</CFormText>
                   </CCol>
@@ -126,7 +126,7 @@ const NewJob = () => {
                     <CLabel htmlFor="endDate">End Date</CLabel>
                   </CCol>
                   <CCol xs="12" md="9">
-                    <CInput type="endDate" id="endDate" name="endDate" placeholder="Enter End Date..." autoComplete="endDate"
+                    <CInput type="date" id="endDate" name="endDate" placeholder="Enter End Date..." autoComplete="endDate"
                       onChange={e => setFormData({ ...formData, 'endDate': e.target.value })} value={formData.endDate} />
                     <CFormText className="help-block">Please enter end date</CFormText>
                   </CCol>
