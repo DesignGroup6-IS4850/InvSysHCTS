@@ -35,6 +35,8 @@ const InventoryItem = ({ match }) => {
 
   async function updateInventoryItem() {
 
+    if (!validateFormData()) return;
+
     try {
       await API.graphql({
         query: updateInventoryItemMutation, variables: {
@@ -80,6 +82,70 @@ const InventoryItem = ({ match }) => {
     history.push("/inventory");  
   }
 
+  function validateFormData() {
+    var nameInput = document.getElementById("name");
+    var quantityInput = document.getElementById("quantity");
+    var descriptionInput = document.getElementById("description");
+    var brandInput = document.getElementById("brand");
+    var categoryInput = document.getElementById("category");
+
+    nameInput.classList.remove("is-invalid");
+    nameInput.classList.remove("is-valid");
+
+    quantityInput.classList.remove("is-invalid");
+    quantityInput.classList.remove("is-valid");
+
+    descriptionInput.classList.remove("is-invalid");
+    descriptionInput.classList.remove("is-valid");
+
+    brandInput.classList.remove("is-invalid");
+    brandInput.classList.remove("is-valid");
+
+    categoryInput.classList.remove("is-invalid");
+    categoryInput.classList.remove("is-valid");
+
+
+    if (nameInput.value == '') {
+      nameInput.classList.add("is-invalid");
+      return false;
+    } else {
+      nameInput.classList.add("is-valid");
+    }
+
+    if (descriptionInput.value == '') {
+      descriptionInput.classList.add("is-invalid");
+      return false;
+    } else {
+      descriptionInput.classList.add("is-valid");
+    }
+
+    if (brandInput.value == '') {
+      brandInput.classList.add("is-invalid");
+      return false;
+    } else {
+      brandInput.classList.add("is-valid");  
+    }
+
+    if (categoryInput.value == '') {
+      categoryInput.classList.add("is-invalid");
+      return false;
+    } else {
+      categoryInput.classList.add("is-valid");  
+    }
+
+
+    try {
+      parseInt(quantityInput.value, 10);
+      categoryInput.classList.add("is-valid"); 
+    } catch (e) {
+      categoryInput.classList.add("is-invalid");
+      return false; 
+    }
+
+    return true;
+
+  }
+
   return (
     <>
 
@@ -106,7 +172,7 @@ const InventoryItem = ({ match }) => {
         <CCol xs="12" md="6">
           <CCard>
             <CCardHeader>
-              Inventory Item
+              <h5>Inventory Item</h5>
           </CCardHeader>
             <CCardBody>
               <CForm action="" method="post" className="form-horizontal">
@@ -117,6 +183,7 @@ const InventoryItem = ({ match }) => {
                   <CCol xs="12" md="9">
                     <CInput type="name" id="name" name="name" placeholder="Enter Name..." autoComplete="name"
                       onChange={e => setInventoryItem({ ...inventoryItem, 'name': e.target.value })} value={inventoryItem.name} />
+                  <div class="invalid-feedback">Name must not be blank</div>
                   </CCol>
                 </CFormGroup>
                 <CFormGroup row>
@@ -126,6 +193,7 @@ const InventoryItem = ({ match }) => {
                   <CCol xs="12" md="9">
                     <CInput type="quantity" id="quantity" name="quantity" placeholder="Enter Quantity..." autoComplete="quantity"
                       onChange={e => setInventoryItem({ ...inventoryItem, 'quantity': parseInt(e.target.value, 10) })} value={inventoryItem.quantity} />
+                  <div class="invalid-feedback">Quantity must be a number with no decimals</div>
                   </CCol>
                 </CFormGroup>
                 <CFormGroup row>
@@ -135,6 +203,7 @@ const InventoryItem = ({ match }) => {
                   <CCol xs="12" md="9">
                     <CInput type="description" id="description" name="description" placeholder="Enter Description..." autoComplete="description"
                       onChange={e => setInventoryItem({ ...inventoryItem, 'description': e.target.value })} value={inventoryItem.description} />
+                  <div class="invalid-feedback">Description must not be blank</div>
                   </CCol>
                 </CFormGroup>
                 <CFormGroup row>
@@ -144,6 +213,7 @@ const InventoryItem = ({ match }) => {
                   <CCol xs="12" md="9">
                     <CInput type="brand" id="brand" name="brand" placeholder="Enter Brand..." autoComplete="brand"
                       onChange={e => setInventoryItem({ ...inventoryItem, 'brand': e.target.value })} value={inventoryItem.brand} />
+                  <div class="invalid-feedback">Brand must not be blank</div>
                   </CCol>
                 </CFormGroup>
                 <CFormGroup row>
@@ -153,6 +223,7 @@ const InventoryItem = ({ match }) => {
                   <CCol xs="12" md="9">
                     <CInput type="category" id="category" name="category" placeholder="Enter Category..." autoComplete="category"
                       onChange={e => setInventoryItem({ ...inventoryItem, 'category': e.target.value })} value={inventoryItem.category} />
+                  <div class="invalid-feedback">Category must not be blank</div>
                   </CCol>
                 </CFormGroup>
               </CForm>

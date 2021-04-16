@@ -33,10 +33,14 @@ const Calendar = () => {
     const apiData = await API.graphql({ query: listJobs });
     var jobEventsArray = new Array();
     apiData.data.listJobs.items.map(job => {
+
+        var color = (job.completed ? 'gray' : '#13aac8')
+
         jobEventsArray.push(
             {
                 id: job.id, title: job.name,
-                date: job.startDate
+                date: job.startDate,
+                color: color
             })
     });
     setJobEvents(jobEventsArray);

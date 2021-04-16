@@ -44,6 +44,10 @@ const Calendar = React.lazy(() => import('./views/calendar/Calendar'));
 const Jobs = React.lazy(() => import('./views/job/Jobs'));
 const NewJob = React.lazy(() => import('./views/job/NewJob'));
 const Job = React.lazy(() => import('./views/job/Job'));
+const Invoice = React.lazy(() => import('./views/invoice/InvoiceViewer'));
+const Customers = React.lazy(() => import('./views/customer/Customers'));
+const Customer = React.lazy(() => import('./views/customer/Customer'));
+const NewCustomer = React.lazy(() => import('./views/customer/NewCustomer'));
 
 
 const routes = [
@@ -94,6 +98,10 @@ const routes = [
   { path: '/jobs', exact: true, name: 'Jobs', component: Jobs },
   { path: '/newjob', exact: true, name: 'New Job', component: NewJob },
   { path: '/job/:id', exact: true, name: 'Job Details', component: Job },
+  { path: '/invoice/:id', exact: true, name: 'Invoice', component: Invoice },
+  { path: '/customers', exact: true, name: 'Customers', component: Customers },
+  { path: '/customer/:id', exact: true, name: 'Customer Details', component: Customer },
+  { path: '/newcustomer', exact: true, name: 'New Customer', component: NewCustomer }
 ];
 
 export default routes;

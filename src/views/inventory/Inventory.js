@@ -47,7 +47,7 @@ const Inventory = () => {
       <CCol xl={12}>
         <CCard>
           <CCardHeader>
-            Inventory
+            <h5>Inventory</h5>
           </CCardHeader>
           <CCardBody>
           <Link to="/newinventoryitem">Add New Inventory Item</Link>

@@ -35,6 +35,7 @@
     "@fullcalendar/daygrid": "^5.5.0",
     "@fullcalendar/interaction": "^5.5.0",
     "@fullcalendar/react": "^5.5.0",
+    "@react-pdf/renderer": "^2.0.0",
     "@wojtekmaj/enzyme-adapter-react-17": "^0.3.2",
     "aws-amplify": "^3.3.25",
     "aws-amplify-react": "^4.2.24",

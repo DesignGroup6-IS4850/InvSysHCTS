@@ -55,17 +55,20 @@ const TheHeader = () => {
       </CHeaderBrand>
 
       <CHeaderNav className="d-md-down-none mr-auto">
-        <CHeaderNavItem className="px-3" >
+        {/* <CHeaderNavItem className="px-3" >
           <CHeaderNavLink to="/dashboard">Dashboard</CHeaderNavLink>
-        </CHeaderNavItem>
-        <CHeaderNavItem  className="px-3">
-          <CHeaderNavLink to="/inventory">Inventory</CHeaderNavLink>
+        </CHeaderNavItem> */}
+        <CHeaderNavItem className="px-3">
+          <CHeaderNavLink to="/calendar">Calendar</CHeaderNavLink>
         </CHeaderNavItem>
         <CHeaderNavItem  className="px-3">
           <CHeaderNavLink to="/jobs">Jobs</CHeaderNavLink>
         </CHeaderNavItem>
+        <CHeaderNavItem  className="px-3">
+          <CHeaderNavLink to="/inventory">Inventory</CHeaderNavLink>
+        </CHeaderNavItem>
         <CHeaderNavItem className="px-3">
-          <CHeaderNavLink to="/calendar">Calendar</CHeaderNavLink>
+          <CHeaderNavLink to="/customers">Customers</CHeaderNavLink>
         </CHeaderNavItem>
         <CHeaderNavItem className="px-3">
           <AmplifySignOut />

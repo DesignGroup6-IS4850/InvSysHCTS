@@ -2,6 +2,7 @@ import { sygnet } from './sygnet'
 import { logo } from './logo'
 import { logoNegative } from './logo-negative'
 import { hctsLogo } from './hcts-logo'
+import { hctsIcon } from './hcts-icon'
 
 import {
   cibSkype,
@@ -132,14 +133,16 @@ import {
   cilIndustry,
   cilBarcode,
   cilBriefcase,
-  cilPlus
+  cilPlus,
+  cilAddressBook
 } from '@coreui/icons'
 
 export const icons = Object.assign({}, {
   sygnet,
   logo,
   logoNegative,
-  hctsLogo
+  hctsLogo,
+  hctsIcon
 }, {
   cilAlignCenter,
   cilAlignLeft,
@@ -235,7 +238,8 @@ export const icons = Object.assign({}, {
   cilIndustry,
   cilBarcode,
   cilBriefcase,
-  cilPlus
+  cilPlus,
+  cilAddressBook
 }, {
   cifUs,
   cifBr,

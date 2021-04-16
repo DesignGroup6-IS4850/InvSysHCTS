@@ -14,13 +14,54 @@ type Job @model {
   name: String!
   startDate: String!
   endDate: String!
+  completed: Boolean
+  customer: Customer @connection
   inventory: [JobInventory] @connection(name:"JobInventory")
+  invoices: [Invoice] @connection(name: "JobInvoices")
+  laborItems: [LaborItem] @connection(name: "JobLaborItems")
   _version: Int
 }
 
 type JobInventory @model {
   id: ID!
   jobQuantity: Int
+  jobPrice: Float
   job: Job @connection(name:"JobInventory")
   inventoryItem: InventoryItem @connection(name:"InventoryJob")
+}
+
+type LaborItem @model {
+  id: ID!
+  description: String!
+  quantity: Int!
+  rate: Float!
+  job: Job @connection(name: "JobLaborItems")
+}
+
+type Customer @model {
+  id: ID!
+  name: String!
+  email: String!
+  phone: String!
+  address: String!
+  _version: Int
+}
+
+type Invoice @model {
+  id: ID!
+  number: String!
+  transDate: String!
+  dueDate: String!
+  items: [InvoiceItem] @connection (name: "InvoiceItems")
+  job: Job @connection (name: "JobInvoices")
+  _version: Int	
+}
+
+type InvoiceItem @model {
+	id: ID!
+	description: String
+	quantity: Int
+	rate: Float
+	invoice: Invoice @connection (name: "InvoiceItems")
+	_version: Int
 }

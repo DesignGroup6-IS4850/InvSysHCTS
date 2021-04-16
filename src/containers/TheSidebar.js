@@ -34,7 +34,7 @@ const TheSidebar = () => {
         />
         <CIcon
           className="c-sidebar-brand-minimized"
-          name="sygnet"
+          name="hctsIcon"
           height={35}
         />
       </CSidebarBrand>

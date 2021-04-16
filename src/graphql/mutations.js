@@ -17,6 +17,7 @@ export const createInventoryItem = /* GraphQL */ `
         items {
           id
           jobQuantity
+          jobPrice
           createdAt
           updatedAt
         }
@@ -44,6 +45,7 @@ export const updateInventoryItem = /* GraphQL */ `
         items {
           id
           jobQuantity
+          jobPrice
           createdAt
           updatedAt
         }
@@ -71,6 +73,7 @@ export const deleteInventoryItem = /* GraphQL */ `
         items {
           id
           jobQuantity
+          jobPrice
           createdAt
           updatedAt
         }
@@ -92,10 +95,45 @@ export const createJob = /* GraphQL */ `
       name
       startDate
       endDate
+      completed
+      customer {
+        id
+        name
+        email
+        phone
+        address
+        _version
+        createdAt
+        updatedAt
+      }
       inventory {
         items {
           id
           jobQuantity
+          jobPrice
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
+      invoices {
+        items {
+          id
+          number
+          transDate
+          dueDate
+          _version
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
+      laborItems {
+        items {
+          id
+          description
+          quantity
+          rate
           createdAt
           updatedAt
         }
@@ -117,10 +155,45 @@ export const updateJob = /* GraphQL */ `
       name
       startDate
       endDate
+      completed
+      customer {
+        id
+        name
+        email
+        phone
+        address
+        _version
+        createdAt
+        updatedAt
+      }
       inventory {
         items {
           id
           jobQuantity
+          jobPrice
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
+      invoices {
+        items {
+          id
+          number
+          transDate
+          dueDate
+          _version
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
+      laborItems {
+        items {
+          id
+          description
+          quantity
+          rate
           createdAt
           updatedAt
         }
@@ -142,10 +215,45 @@ export const deleteJob = /* GraphQL */ `
       name
       startDate
       endDate
+      completed
+      customer {
+        id
+        name
+        email
+        phone
+        address
+        _version
+        createdAt
+        updatedAt
+      }
       inventory {
         items {
           id
           jobQuantity
+          jobPrice
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
+      invoices {
+        items {
+          id
+          number
+          transDate
+          dueDate
+          _version
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
+      laborItems {
+        items {
+          id
+          description
+          quantity
+          rate
           createdAt
           updatedAt
         }
@@ -165,12 +273,30 @@ export const createJobInventory = /* GraphQL */ `
     createJobInventory(input: $input, condition: $condition) {
       id
       jobQuantity
+      jobPrice
       job {
         id
         name
         startDate
         endDate
+        completed
+        customer {
+          id
+          name
+          email
+          phone
+          address
+          _version
+          createdAt
+          updatedAt
+        }
         inventory {
+          nextToken
+        }
+        invoices {
+          nextToken
+        }
+        laborItems {
           nextToken
         }
         _version
@@ -204,12 +330,30 @@ export const updateJobInventory = /* GraphQL */ `
     updateJobInventory(input: $input, condition: $condition) {
       id
       jobQuantity
+      jobPrice
       job {
         id
         name
         startDate
         endDate
+        completed
+        customer {
+          id
+          name
+          email
+          phone
+          address
+          _version
+          createdAt
+          updatedAt
+        }
         inventory {
+          nextToken
+        }
+        invoices {
+          nextToken
+        }
+        laborItems {
           nextToken
         }
         _version
@@ -243,12 +387,30 @@ export const deleteJobInventory = /* GraphQL */ `
     deleteJobInventory(input: $input, condition: $condition) {
       id
       jobQuantity
+      jobPrice
       job {
         id
         name
         startDate
         endDate
+        completed
+        customer {
+          id
+          name
+          email
+          phone
+          address
+          _version
+          createdAt
+          updatedAt
+        }
         inventory {
+          nextToken
+        }
+        invoices {
+          nextToken
+        }
+        laborItems {
           nextToken
         }
         _version
@@ -269,6 +431,474 @@ export const deleteJobInventory = /* GraphQL */ `
         createdAt
         updatedAt
       }
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const createLaborItem = /* GraphQL */ `
+  mutation CreateLaborItem(
+    $input: CreateLaborItemInput!
+    $condition: ModelLaborItemConditionInput
+  ) {
+    createLaborItem(input: $input, condition: $condition) {
+      id
+      description
+      quantity
+      rate
+      job {
+        id
+        name
+        startDate
+        endDate
+        completed
+        customer {
+          id
+          name
+          email
+          phone
+          address
+          _version
+          createdAt
+          updatedAt
+        }
+        inventory {
+          nextToken
+        }
+        invoices {
+          nextToken
+        }
+        laborItems {
+          nextToken
+        }
+        _version
+        createdAt
+        updatedAt
+      }
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const updateLaborItem = /* GraphQL */ `
+  mutation UpdateLaborItem(
+    $input: UpdateLaborItemInput!
+    $condition: ModelLaborItemConditionInput
+  ) {
+    updateLaborItem(input: $input, condition: $condition) {
+      id
+      description
+      quantity
+      rate
+      job {
+        id
+        name
+        startDate
+        endDate
+        completed
+        customer {
+          id
+          name
+          email
+          phone
+          address
+          _version
+          createdAt
+          updatedAt
+        }
+        inventory {
+          nextToken
+        }
+        invoices {
+          nextToken
+        }
+        laborItems {
+          nextToken
+        }
+        _version
+        createdAt
+        updatedAt
+      }
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const deleteLaborItem = /* GraphQL */ `
+  mutation DeleteLaborItem(
+    $input: DeleteLaborItemInput!
+    $condition: ModelLaborItemConditionInput
+  ) {
+    deleteLaborItem(input: $input, condition: $condition) {
+      id
+      description
+      quantity
+      rate
+      job {
+        id
+        name
+        startDate
+        endDate
+        completed
+        customer {
+          id
+          name
+          email
+          phone
+          address
+          _version
+          createdAt
+          updatedAt
+        }
+        inventory {
+          nextToken
+        }
+        invoices {
+          nextToken
+        }
+        laborItems {
+          nextToken
+        }
+        _version
+        createdAt
+        updatedAt
+      }
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const createCustomer = /* GraphQL */ `
+  mutation CreateCustomer(
+    $input: CreateCustomerInput!
+    $condition: ModelCustomerConditionInput
+  ) {
+    createCustomer(input: $input, condition: $condition) {
+      id
+      name
+      email
+      phone
+      address
+      _version
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const updateCustomer = /* GraphQL */ `
+  mutation UpdateCustomer(
+    $input: UpdateCustomerInput!
+    $condition: ModelCustomerConditionInput
+  ) {
+    updateCustomer(input: $input, condition: $condition) {
+      id
+      name
+      email
+      phone
+      address
+      _version
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const deleteCustomer = /* GraphQL */ `
+  mutation DeleteCustomer(
+    $input: DeleteCustomerInput!
+    $condition: ModelCustomerConditionInput
+  ) {
+    deleteCustomer(input: $input, condition: $condition) {
+      id
+      name
+      email
+      phone
+      address
+      _version
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const createInvoice = /* GraphQL */ `
+  mutation CreateInvoice(
+    $input: CreateInvoiceInput!
+    $condition: ModelInvoiceConditionInput
+  ) {
+    createInvoice(input: $input, condition: $condition) {
+      id
+      number
+      transDate
+      dueDate
+      items {
+        items {
+          id
+          description
+          quantity
+          rate
+          _version
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
+      job {
+        id
+        name
+        startDate
+        endDate
+        completed
+        customer {
+          id
+          name
+          email
+          phone
+          address
+          _version
+          createdAt
+          updatedAt
+        }
+        inventory {
+          nextToken
+        }
+        invoices {
+          nextToken
+        }
+        laborItems {
+          nextToken
+        }
+        _version
+        createdAt
+        updatedAt
+      }
+      _version
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const updateInvoice = /* GraphQL */ `
+  mutation UpdateInvoice(
+    $input: UpdateInvoiceInput!
+    $condition: ModelInvoiceConditionInput
+  ) {
+    updateInvoice(input: $input, condition: $condition) {
+      id
+      number
+      transDate
+      dueDate
+      items {
+        items {
+          id
+          description
+          quantity
+          rate
+          _version
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
+      job {
+        id
+        name
+        startDate
+        endDate
+        completed
+        customer {
+          id
+          name
+          email
+          phone
+          address
+          _version
+          createdAt
+          updatedAt
+        }
+        inventory {
+          nextToken
+        }
+        invoices {
+          nextToken
+        }
+        laborItems {
+          nextToken
+        }
+        _version
+        createdAt
+        updatedAt
+      }
+      _version
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const deleteInvoice = /* GraphQL */ `
+  mutation DeleteInvoice(
+    $input: DeleteInvoiceInput!
+    $condition: ModelInvoiceConditionInput
+  ) {
+    deleteInvoice(input: $input, condition: $condition) {
+      id
+      number
+      transDate
+      dueDate
+      items {
+        items {
+          id
+          description
+          quantity
+          rate
+          _version
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
+      job {
+        id
+        name
+        startDate
+        endDate
+        completed
+        customer {
+          id
+          name
+          email
+          phone
+          address
+          _version
+          createdAt
+          updatedAt
+        }
+        inventory {
+          nextToken
+        }
+        invoices {
+          nextToken
+        }
+        laborItems {
+          nextToken
+        }
+        _version
+        createdAt
+        updatedAt
+      }
+      _version
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const createInvoiceItem = /* GraphQL */ `
+  mutation CreateInvoiceItem(
+    $input: CreateInvoiceItemInput!
+    $condition: ModelInvoiceItemConditionInput
+  ) {
+    createInvoiceItem(input: $input, condition: $condition) {
+      id
+      description
+      quantity
+      rate
+      invoice {
+        id
+        number
+        transDate
+        dueDate
+        items {
+          nextToken
+        }
+        job {
+          id
+          name
+          startDate
+          endDate
+          completed
+          _version
+          createdAt
+          updatedAt
+        }
+        _version
+        createdAt
+        updatedAt
+      }
+      _version
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const updateInvoiceItem = /* GraphQL */ `
+  mutation UpdateInvoiceItem(
+    $input: UpdateInvoiceItemInput!
+    $condition: ModelInvoiceItemConditionInput
+  ) {
+    updateInvoiceItem(input: $input, condition: $condition) {
+      id
+      description
+      quantity
+      rate
+      invoice {
+        id
+        number
+        transDate
+        dueDate
+        items {
+          nextToken
+        }
+        job {
+          id
+          name
+          startDate
+          endDate
+          completed
+          _version
+          createdAt
+          updatedAt
+        }
+        _version
+        createdAt
+        updatedAt
+      }
+      _version
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const deleteInvoiceItem = /* GraphQL */ `
+  mutation DeleteInvoiceItem(
+    $input: DeleteInvoiceItemInput!
+    $condition: ModelInvoiceItemConditionInput
+  ) {
+    deleteInvoiceItem(input: $input, condition: $condition) {
+      id
+      description
+      quantity
+      rate
+      invoice {
+        id
+        number
+        transDate
+        dueDate
+        items {
+          nextToken
+        }
+        job {
+          id
+          name
+          startDate
+          endDate
+          completed
+          _version
+          createdAt
+          updatedAt
+        }
+        _version
+        createdAt
+        updatedAt
+      }
+      _version
       createdAt
       updatedAt
     }

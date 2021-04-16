@@ -30,7 +30,7 @@ const NewInventoryItem = () => {
   const history = useHistory();
 
   async function createInventoryItem() {
-    if (!formData.name || !formData.description) return;
+    if (!validateFormData()) return;
 
     try {
       setInventoryItem([...inventoryItem, formData]);
@@ -61,6 +61,70 @@ const NewInventoryItem = () => {
     confirmationModal.show();
   }
 
+  function validateFormData() {
+    var nameInput = document.getElementById("name");
+    var quantityInput = document.getElementById("quantity");
+    var descriptionInput = document.getElementById("description");
+    var brandInput = document.getElementById("brand");
+    var categoryInput = document.getElementById("category");
+
+    nameInput.classList.remove("is-invalid");
+    nameInput.classList.remove("is-valid");
+
+    quantityInput.classList.remove("is-invalid");
+    quantityInput.classList.remove("is-valid");
+
+    descriptionInput.classList.remove("is-invalid");
+    descriptionInput.classList.remove("is-valid");
+
+    brandInput.classList.remove("is-invalid");
+    brandInput.classList.remove("is-valid");
+
+    categoryInput.classList.remove("is-invalid");
+    categoryInput.classList.remove("is-valid");
+
+
+    if (nameInput.value == '') {
+      nameInput.classList.add("is-invalid");
+      return false;
+    } else {
+      nameInput.classList.add("is-valid");
+    }
+
+    if (descriptionInput.value == '') {
+      descriptionInput.classList.add("is-invalid");
+      return false;
+    } else {
+      descriptionInput.classList.add("is-valid");
+    }
+
+    if (brandInput.value == '') {
+      brandInput.classList.add("is-invalid");
+      return false;
+    } else {
+      brandInput.classList.add("is-valid");  
+    }
+
+    if (categoryInput.value == '') {
+      categoryInput.classList.add("is-invalid");
+      return false;
+    } else {
+      categoryInput.classList.add("is-valid");  
+    }
+
+
+    try {
+      parseInt(quantityInput.value, 10);
+      categoryInput.classList.add("is-valid"); 
+    } catch (e) {
+      categoryInput.classList.add("is-invalid");
+      return false; 
+    }
+
+    return true;
+
+  }
+
   return (
     <>
       <div className="modal fade" id="confirmationModal" tabIndex="-1" role="dialog" aria-labelledby="confirmationModalLabel" aria-hidden="true">
@@ -86,7 +150,7 @@ const NewInventoryItem = () => {
         <CCol xs="12" md="6">
           <CCard>
             <CCardHeader>
-              New Inventory Item
+              <h5>New Inventory Item</h5>
             </CCardHeader>
             <CCardBody>
               <CForm action="" method="post" className="form-horizontal">
@@ -98,6 +162,7 @@ const NewInventoryItem = () => {
                     <CInput type="name" id="name" name="name" placeholder="Enter Name..." autoComplete="name"
                       onChange={e => setFormData({ ...formData, 'name': e.target.value })} value={formData.name} />
                     <CFormText className="help-block">Please enter item name</CFormText>
+                    <div class="invalid-feedback">Name must not be blank</div>
                   </CCol>
                 </CFormGroup>
                 <CFormGroup row>
@@ -108,6 +173,7 @@ const NewInventoryItem = () => {
                     <CInput type="quantity" id="quantity" name="quantity" placeholder="Enter Quantity..." autoComplete="quantity"
                       onChange={e => setFormData({ ...formData, 'quantity': parseInt(e.target.value, 10) })} value={formData.quantity} />
                     <CFormText className="help-block">Please enter quantity</CFormText>
+                    <div class="invalid-feedback">Quantity must be a number with no decimals</div>
                   </CCol>
                 </CFormGroup>
                 <CFormGroup row>
@@ -118,6 +184,7 @@ const NewInventoryItem = () => {
                     <CInput type="description" id="description" name="description" placeholder="Enter Description..." autoComplete="description"
                       onChange={e => setFormData({ ...formData, 'description': e.target.value })} value={formData.description} />
                     <CFormText className="help-block">Please enter description</CFormText>
+                    <div class="invalid-feedback">Description must not be blank</div>
                   </CCol>
                 </CFormGroup>
                 <CFormGroup row>
@@ -128,6 +195,7 @@ const NewInventoryItem = () => {
                     <CInput type="brand" id="brand" name="brand" placeholder="Enter Brand..." autoComplete="brand"
                       onChange={e => setFormData({ ...formData, 'brand': e.target.value })} value={formData.brand} />
                     <CFormText className="help-block">Please enter brand</CFormText>
+                    <div class="invalid-feedback">Brand must not be blank</div>
                   </CCol>
                 </CFormGroup>
                 <CFormGroup row>
@@ -138,6 +206,7 @@ const NewInventoryItem = () => {
                     <CInput type="category" id="category" name="category" placeholder="Enter Category..." autoComplete="category"
                       onChange={e => setFormData({ ...formData, 'category': e.target.value })} value={formData.category} />
                     <CFormText className="help-block">Please enter category</CFormText>
+                    <div class="invalid-feedback">Category must not be blank</div>
                   </CCol>
                 </CFormGroup>
               </CForm>
