@@ -82,6 +82,14 @@ const InventoryItem = ({ match }) => {
     history.push("/inventory");  
   }
 
+  function ensureNumeric(value) {
+    var newValue = parseInt(value, 10);
+    if (Number.isNaN(newValue)) {
+      newValue = 0;
+    }
+    return newValue;
+  }
+
   function validateFormData() {
     var nameInput = document.getElementById("name");
     var quantityInput = document.getElementById("quantity");
@@ -192,7 +200,7 @@ const InventoryItem = ({ match }) => {
                   </CCol>
                   <CCol xs="12" md="9">
                     <CInput type="quantity" id="quantity" name="quantity" placeholder="Enter Quantity..." autoComplete="quantity"
-                      onChange={e => setInventoryItem({ ...inventoryItem, 'quantity': parseInt(e.target.value, 10) })} value={inventoryItem.quantity} />
+                      onChange={e => setInventoryItem({ ...inventoryItem, 'quantity': ensureNumeric(e.target.value) })} value={inventoryItem.quantity} />
                   <div class="invalid-feedback">Quantity must be a number with no decimals</div>
                   </CCol>
                 </CFormGroup>

@@ -47,6 +47,14 @@ const Inventory = () => {
     setPageCount(Math.ceil(inventoryItems.length/itemsPerPage));
   }
 
+  function ensureNumeric(value) {
+    var newValue = parseInt(value, 10);
+    if (Number.isNaN(newValue)) {
+      newValue = 0;
+    }
+    return newValue;
+  }
+
   return (
     <CRow>
       <CCol xl={12}>

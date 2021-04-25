@@ -686,7 +686,8 @@ const Job = ({ match }) => {
         var customerInput = document.getElementById("customer");
         var startDateInput = document.getElementById("startDate");
         var endDateInput = document.getElementById("endDate");
-    
+        var endDateErrorMsg = document.getElementById("endDateErrorMsg");
+
         nameInput.classList.remove("is-invalid");
         nameInput.classList.remove("is-valid");
     
@@ -723,14 +724,26 @@ const Job = ({ match }) => {
         if (dateIsValid(endDateInput.value)) {
           endDateInput.classList.add("is-valid");
         } else {
+          endDateErrorMsg.innerHTML = "Must be a valid date"
           endDateInput.classList.add("is-invalid");  
           return false;
         }
     
+        if (endDateAfterStartDate(startDateInput.value, endDateInput.value)) {
+            endDateInput.classList.add("is-valid");
+          } else {
+            endDateErrorMsg.innerHTML = "End date must occur after start date"
+            endDateInput.classList.add("is-invalid");  
+            return false;
+        }
+
         return true;
     
       }
-    
+      function endDateAfterStartDate(startDate, endDate) {
+        return (Date.parse(startDate) <= Date.parse(endDate));
+      }
+
       function dateIsValid(dateString)
       {
           // First check for the pattern (yyyy-mm-dd)
@@ -1138,7 +1151,7 @@ const Job = ({ match }) => {
                                     <CCol xs="12" md="9">
                                         <CInput type="date" id="endDate" name="endDate" placeholder="Enter End Date..." autoComplete="endDate"
                                             onChange={e => setJob({ ...job, 'endDate': e.target.value })} value={job.endDate} />
-                                        <div class="invalid-feedback">Must be a valid date</div>
+                                        <div id="endDateErrorMsg" class="invalid-feedback">Must be a valid date</div>
                                     </CCol>
                                 </CFormGroup>
                             </CForm>

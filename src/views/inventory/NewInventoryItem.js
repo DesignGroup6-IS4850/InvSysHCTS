@@ -61,6 +61,14 @@ const NewInventoryItem = () => {
     confirmationModal.show();
   }
 
+  function ensureNumeric(value) {
+    var newValue = parseInt(value, 10);
+    if (Number.isNaN(newValue)) {
+      newValue = 0;
+    }
+    return newValue;
+  }
+
   function validateFormData() {
     var nameInput = document.getElementById("name");
     var quantityInput = document.getElementById("quantity");
@@ -171,7 +179,7 @@ const NewInventoryItem = () => {
                   </CCol>
                   <CCol xs="12" md="9">
                     <CInput type="quantity" id="quantity" name="quantity" placeholder="Enter Quantity..." autoComplete="quantity"
-                      onChange={e => setFormData({ ...formData, 'quantity': parseInt(e.target.value, 10) })} value={formData.quantity} />
+                      onChange={e => setFormData({ ...formData, 'quantity': ensureNumeric(e.target.value) })} value={formData.quantity} />
                     <CFormText className="help-block">Please enter quantity</CFormText>
                     <div class="invalid-feedback">Quantity must be a number with no decimals</div>
                   </CCol>

@@ -22,7 +22,7 @@ const Jobs = () => {
   const [jobs, setJobs] = useState([]);
 
   const pageChange = newPage => {
-    currentPage !== newPage && history.push(`/job?page=${newPage}`)
+    currentPage !== newPage && history.push(`/jobs?page=${newPage}`)
   }
 
   useEffect(() => {
