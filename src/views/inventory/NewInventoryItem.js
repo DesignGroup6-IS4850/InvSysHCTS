@@ -46,6 +46,7 @@ const NewInventoryItem = () => {
 
   function resetForm() {
     setFormData(initialFormState);
+    clearValidationMessages();
   }
 
   function returnToInventory() {
@@ -130,6 +131,30 @@ const NewInventoryItem = () => {
     }
 
     return true;
+
+  }
+
+  function clearValidationMessages() {
+    var nameInput = document.getElementById("name");
+    var quantityInput = document.getElementById("quantity");
+    var descriptionInput = document.getElementById("description");
+    var brandInput = document.getElementById("brand");
+    var categoryInput = document.getElementById("category");
+
+    nameInput.classList.remove("is-invalid");
+    nameInput.classList.remove("is-valid");
+
+    quantityInput.classList.remove("is-invalid");
+    quantityInput.classList.remove("is-valid");         
+
+    descriptionInput.classList.remove("is-invalid");
+    descriptionInput.classList.remove("is-valid");   
+
+    brandInput.classList.remove("is-invalid");
+    brandInput.classList.remove("is-valid");   
+
+    categoryInput.classList.remove("is-invalid");
+    categoryInput.classList.remove("is-valid");   
 
   }
 

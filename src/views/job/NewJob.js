@@ -75,6 +75,7 @@ const NewJob = () => {
 
   function resetForm() {
     setFormData(initialFormState);
+    clearValidationMessages();
     loadCustomerOptions(customers);
   }
 
@@ -181,6 +182,26 @@ const NewJob = () => {
       // Check the range of the day
       return day > 0 && day <= monthLength[month - 1];
   };
+
+  function clearValidationMessages() {
+    var nameInput = document.getElementById("name");
+    var customerInput = document.getElementById("customer");
+    var startDateInput = document.getElementById("startDate");
+    var endDateInput = document.getElementById("endDate");
+
+    nameInput.classList.remove("is-invalid");
+    nameInput.classList.remove("is-valid");
+
+    customerInput.classList.remove("is-invalid");
+    customerInput.classList.remove("is-valid");         
+
+    startDateInput.classList.remove("is-invalid");
+    startDateInput.classList.remove("is-valid");   
+
+    endDateInput.classList.remove("is-invalid");
+    endDateInput.classList.remove("is-valid");   
+
+  }
 
   return (
     <>

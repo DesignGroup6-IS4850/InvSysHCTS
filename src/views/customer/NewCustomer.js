@@ -46,6 +46,7 @@ const NewCustomer = () => {
 
   function resetForm() {
     setFormData(initialFormState);
+    clearValidationMessages();
   }
 
   function returnToCustomers() {
@@ -126,6 +127,26 @@ const NewCustomer = () => {
     var x = value.replace(/\D/g, '').match(/(\d{0,3})(\d{0,3})(\d{0,4})/);
     var newValue = !x[2] ? x[1] : '(' + x[1] + ') ' + x[2] + (x[3] ? '-' + x[3] : '');   
     return newValue;
+  }
+
+  function clearValidationMessages() {
+    var nameInput = document.getElementById("name");
+    var addressInput = document.getElementById("address");
+    var phoneInput = document.getElementById("phone");
+    var emailInput = document.getElementById("email");
+
+    nameInput.classList.remove("is-invalid");
+    nameInput.classList.remove("is-valid");
+
+    addressInput.classList.remove("is-invalid");
+    addressInput.classList.remove("is-valid");         
+
+    phoneInput.classList.remove("is-invalid");
+    phoneInput.classList.remove("is-valid");   
+
+    emailInput.classList.remove("is-invalid");
+    emailInput.classList.remove("is-valid");   
+
   }
 
   return (
