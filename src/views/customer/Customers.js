@@ -24,7 +24,7 @@ const Customers = () => {
   const [customers, setCustomers] = useState([]);
 
   const pageChange = newPage => {
-    currentPage !== newPage && history.push(`/customer?page=${newPage}`)
+    currentPage !== newPage && history.push(`/customers?page=${newPage}`)
   }
 
   useEffect(() => {

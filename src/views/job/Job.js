@@ -370,7 +370,7 @@ const Job = ({ match }) => {
 
         try {
             await API.graphql({ query: deleteJobMutation, variables: { input: { id: job.id } } });
-            showConfirmation("Delete Successful", "'" + job.name + "' was deleted successfully")
+            showConfirmationAndLeave("Delete Successful", "'" + job.name + "' was deleted successfully")
         } catch (e) {
             console.log(e);
         }
@@ -506,6 +506,15 @@ const Job = ({ match }) => {
 
     function showConfirmation(title, text) {
         var modalElement = document.getElementById('confirmationModal');
+        var confirmationModal = new Modal(modalElement);
+        document.getElementById('confirmationModalLabel').innerText = title;
+        document.getElementById('confirmationModalText').innerText = text;
+        confirmationModal.show();
+    }
+
+    function showConfirmationAndLeave(title, text) {
+        var modalElement = document.getElementById('confirmationModal');
+        modalElement.addEventListener("hidden.coreui.modal", function () { history.push("/jobs"); });
         var confirmationModal = new Modal(modalElement);
         document.getElementById('confirmationModalLabel').innerText = title;
         document.getElementById('confirmationModalText').innerText = text;

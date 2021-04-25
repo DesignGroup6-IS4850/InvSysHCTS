@@ -22,6 +22,7 @@ const Inventory = () => {
   const queryPage = useLocation().search.match(/page=([0-9]+)/, '')
   const currentPage = Number(queryPage && queryPage[1] ? queryPage[1] : 1)
   const [page, setPage] = useState(currentPage)
+  const [pageCount, setPageCount] = useState(10)
 
   const [inventoryItems, setInventoryItems] = useState([]);
 
@@ -42,6 +43,10 @@ const Inventory = () => {
     setInventoryItems(apiData.data.listInventoryItems.items);
   }
 
+  function calculatePageCount(itemsPerPage) {
+    setPageCount(Math.ceil(inventoryItems.length/itemsPerPage));
+  }
+
   return (
     <CRow>
       <CCol xl={12}>
@@ -51,7 +56,9 @@ const Inventory = () => {
           </CCardHeader>
           <CCardBody>
           <Link to="/newinventoryitem">Add New Inventory Item</Link>
-          <CDataTable
+          <CDataTable 
+            id="inventoryTable"
+            name="inventoryTable"
             items={inventoryItems}
             fields={[
               { key: 'name', _classes: 'font-weight-bold' },
@@ -59,19 +66,20 @@ const Inventory = () => {
             ]}
             hover
             striped
-            itemsPerPage={8}
+            itemsPerPage={10}
             itemsPerPageSelect
             activePage={page}
             clickableRows
             columnFilter
             tableFilter
             sorter
+            onPaginationChange={(itemsPerPage) => calculatePageCount(itemsPerPage)}
             onRowClick={(item) => history.push(`/inventory/${item.id}`)}
           />
           <CPagination
             activePage={page}
             onActivePageChange={pageChange}
-            pages={5}
+            pages={pageCount}
             doubleArrows={false} 
             align="center"
           />
