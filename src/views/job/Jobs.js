@@ -25,6 +25,8 @@ const Jobs = () => {
   const pageChange = newPage => {
     currentPage !== newPage && history.push(`/jobs?page=${newPage}`)
   }
+  
+  const tableFilterProps = {placeholder: ' '}
 
   useEffect(() => {
     currentPage !== page && setPage(currentPage)
@@ -65,7 +67,7 @@ const Jobs = () => {
             activePage={page}
             clickableRows
             columnFilter
-            tableFilter
+            tableFilter={tableFilterProps}
             sorter
             onPaginationChange={(itemsPerPage) => calculatePageCount(itemsPerPage)}
             onRowClick={(item) => history.push(`/job/${item.id}`)}

@@ -24,6 +24,8 @@ const Customers = () => {
 
   const [customers, setCustomers] = useState([]);
 
+  const tableFilterProps = {placeholder: ' '}
+
   const pageChange = newPage => {
     currentPage !== newPage && history.push(`/customers?page=${newPage}`)
   }
@@ -67,7 +69,7 @@ const Customers = () => {
             activePage={page}
             clickableRows
             columnFilter
-            tableFilter
+            tableFilter={tableFilterProps}
             sorter
             onPaginationChange={(itemsPerPage) => calculatePageCount(itemsPerPage)}
             onRowClick={(item) => history.push(`/customer/${item.id}`)}

@@ -119,6 +119,7 @@ const Job = ({ match }) => {
 
     const history = useHistory();
 
+    const tableFilterProps = {placeholder: ' '}
 
     useEffect(() => {
         fetchJob(match.params.id);
@@ -1180,7 +1181,7 @@ const Job = ({ match }) => {
                                             items={invoices}
                                             fields={invoiceFields}
                                             columnFilter
-                                            tableFilter
+                                            tableFilter={tableFilterProps}
                                             footer
                                             itemsPerPageSelect
                                             itemsPerPage={5}
@@ -1214,7 +1215,7 @@ const Job = ({ match }) => {
                                             items={materialList}
                                             fields={materialFields}
                                             columnFilter
-                                            tableFilter
+                                            tableFilter={tableFilterProps}
                                             footer
                                             itemsPerPageSelect
                                             itemsPerPage={5}
@@ -1268,7 +1269,7 @@ const Job = ({ match }) => {
                                             items={laborList}
                                             fields={laborFields}
                                             columnFilter
-                                            tableFilter
+                                            tableFilter={tableFilterProps}
                                             footer
                                             itemsPerPageSelect
                                             itemsPerPage={5}
