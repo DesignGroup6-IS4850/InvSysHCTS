@@ -91,6 +91,9 @@ const InventoryItem = ({ match }) => {
   }
 
   function validateFormData() {
+
+    var errorCount = 0;
+
     var nameInput = document.getElementById("name");
     var quantityInput = document.getElementById("quantity");
     var descriptionInput = document.getElementById("description");
@@ -115,28 +118,32 @@ const InventoryItem = ({ match }) => {
 
     if (nameInput.value == '') {
       nameInput.classList.add("is-invalid");
-      return false;
+      // return false;
+      errorCount++;
     } else {
       nameInput.classList.add("is-valid");
     }
 
     if (descriptionInput.value == '') {
       descriptionInput.classList.add("is-invalid");
-      return false;
+      // return false;
+      errorCount++;
     } else {
       descriptionInput.classList.add("is-valid");
     }
 
     if (brandInput.value == '') {
       brandInput.classList.add("is-invalid");
-      return false;
+      // return false;
+      errorCount++;
     } else {
       brandInput.classList.add("is-valid");  
     }
 
     if (categoryInput.value == '') {
       categoryInput.classList.add("is-invalid");
-      return false;
+      // return false;
+      errorCount++;
     } else {
       categoryInput.classList.add("is-valid");  
     }
@@ -147,10 +154,11 @@ const InventoryItem = ({ match }) => {
       categoryInput.classList.add("is-valid"); 
     } catch (e) {
       categoryInput.classList.add("is-invalid");
-      return false; 
+      // return false; 
+      errorCount++;
     }
 
-    return true;
+    return (errorCount == 0);
 
   }
 

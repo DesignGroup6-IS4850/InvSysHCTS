@@ -63,6 +63,9 @@ const NewCustomer = () => {
   }
 
   function validateFormData() {
+
+    var errorCount = 0;
+
     var nameInput = document.getElementById("name");
     var addressInput = document.getElementById("address");
     var phoneInput = document.getElementById("phone");
@@ -82,14 +85,16 @@ const NewCustomer = () => {
 
     if (nameInput.value == '') {
       nameInput.classList.add("is-invalid");
-      return false;
+      // return false;
+      errorCount++;
     } else {
       nameInput.classList.add("is-valid");
     }
 
     if (addressInput.value == '') {
       addressInput.classList.add("is-invalid");
-      return false;
+      // return false;
+      errorCount++;
     } else {
       addressInput.classList.add("is-valid");
     }
@@ -98,17 +103,19 @@ const NewCustomer = () => {
       phoneInput.classList.add("is-valid");
     } else {
       phoneInput.classList.add("is-invalid");
-      return false;  
+      // return false;  
+      errorCount++;
     }
 
     if (emailIsValid(emailInput.value)) {
       emailInput.classList.add("is-valid");
     } else {
       emailInput.classList.add("is-invalid");  
-      return false;
+      // return false;
+      errorCount++;
     }
 
-    return true;
+    return (errorCount == 0);
 
   }
 

@@ -683,6 +683,9 @@ const Job = ({ match }) => {
     }
 
     function validateJobData() {
+
+        var errorCount = 0;
+
         var nameInput = document.getElementById("name");
         var customerInput = document.getElementById("customer");
         var startDateInput = document.getElementById("startDate");
@@ -703,14 +706,16 @@ const Job = ({ match }) => {
     
         if (nameInput.value == '') {
           nameInput.classList.add("is-invalid");
-          return false;
+        //   return false;
+          errorCount++;
         } else {
           nameInput.classList.add("is-valid");
         }
     
         if (customerInput.value == '') {
           customerInput.classList.add("is-invalid");
-          return false;
+        //   return false;
+          errorCount++;
         } else {
           customerInput.classList.add("is-valid");
         }
@@ -719,7 +724,8 @@ const Job = ({ match }) => {
           startDateInput.classList.add("is-valid");
         } else {
           startDateInput.classList.add("is-invalid");
-          return false;  
+        //   return false;
+          errorCount++;  
         }
     
         if (dateIsValid(endDateInput.value)) {
@@ -727,7 +733,8 @@ const Job = ({ match }) => {
         } else {
           endDateErrorMsg.innerHTML = "Must be a valid date"
           endDateInput.classList.add("is-invalid");  
-          return false;
+        //   return false;
+          errorCount++;
         }
     
         if (endDateAfterStartDate(startDateInput.value, endDateInput.value)) {
@@ -735,10 +742,11 @@ const Job = ({ match }) => {
           } else {
             endDateErrorMsg.innerHTML = "End date must occur after start date"
             endDateInput.classList.add("is-invalid");  
-            return false;
+            // return false;
+            errorCount++;
         }
 
-        return true;
+        return (errorCount == 0);
     
       }
       function endDateAfterStartDate(startDate, endDate) {
@@ -814,6 +822,9 @@ const Job = ({ match }) => {
       }
 
       function validateAddMaterial() {
+
+        var errorCount = 0;
+
         var inventoryInput = document.getElementById("selectMaterialInventory");
         var quantityInput = document.getElementById("addMaterialQuantityInput");
         var priceInput = document.getElementById("addMaterialPriceInput");
@@ -823,7 +834,8 @@ const Job = ({ match }) => {
     
         if (inventoryInput.value == '') {
             inventoryInput.classList.add("is-invalid");
-            return false;
+            // return false;
+            errorCount++;
         } else {
             inventoryInput.classList.add("is-valid");
         }
@@ -832,20 +844,25 @@ const Job = ({ match }) => {
             quantityInput.classList.add("is-valid");
         } else {
             quantityInput.classList.add("is-invalid");  
-            return false;
+            // return false;
+            errorCount++;
         }
     
         if (priceIsValid(priceInput.value)) {
             priceInput.classList.add("is-valid");
         } else {
             priceInput.classList.add("is-invalid");  
-            return false;
+            // return false;
+            errorCount++;
         }
 
-        return true;          
+        return (errorCount == 0);          
       }
 
       function validateEditMaterial() {
+
+        var errorCount = 0;
+
         var quantityInput = document.getElementById("quantityText");
         var priceInput = document.getElementById("priceText");
         var quantityErrorMsg = document.getElementById("editMaterialQuantityError");
@@ -857,17 +874,19 @@ const Job = ({ match }) => {
             quantityInput.classList.add("is-valid");
         } else {
             quantityInput.classList.add("is-invalid");  
-            return false;
+            // return false;
+            errorCount++;
         }
     
         if (priceIsValid(priceInput.value)) {
             priceInput.classList.add("is-valid");
         } else {
             priceInput.classList.add("is-invalid");  
-            return false;
+            // return false;
+            errorCount++;
         }
 
-        return true;          
+        return (errorCount == 0);          
       }
 
       function quantityIsValid(quantity, quantityErrorMsg, inventoryId) {
@@ -893,6 +912,9 @@ const Job = ({ match }) => {
 
 
       function validateLabor() {
+
+        var errorCount = 0;
+
         var descriptionInput = document.getElementById("laborDescriptionInput");
         var quantityInput = document.getElementById("laborQuantityInput");
         var rateInput = document.getElementById("laborRateInput");
@@ -901,7 +923,8 @@ const Job = ({ match }) => {
     
         if (descriptionInput.value == '') {
             descriptionInput.classList.add("is-invalid");
-            return false;
+            // return false;
+            errorCount++;
         } else {
             descriptionInput.classList.add("is-valid");
         }
@@ -910,17 +933,19 @@ const Job = ({ match }) => {
             quantityInput.classList.add("is-valid");
         } else {
             quantityInput.classList.add("is-invalid");  
-            return false;
+            // return false;
+            errorCount++;
         }
     
         if ((rateInput.value != '') && (!isNaN(Number(rateInput.value)))) {
             rateInput.classList.add("is-valid");
         } else {
             rateInput.classList.add("is-invalid");  
-            return false;
+            // return false;
+            errorCount++;
         }
 
-        return true;
+        return (errorCount == 0);
     }
 
     return (

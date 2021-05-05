@@ -93,6 +93,9 @@ const NewJob = () => {
   }
 
   function validateFormData() {
+
+    var errorCount = 0;
+
     var nameInput = document.getElementById("name");
     var customerInput = document.getElementById("customer");
     var startDateInput = document.getElementById("startDate");
@@ -113,14 +116,16 @@ const NewJob = () => {
 
     if (nameInput.value == '') {
       nameInput.classList.add("is-invalid");
-      return false;
+      // return false;
+      errorCount++;
     } else {
       nameInput.classList.add("is-valid");
     }
 
     if (customerInput.value == '') {
       customerInput.classList.add("is-invalid");
-      return false;
+      // return false;
+      errorCount++;
     } else {
       customerInput.classList.add("is-valid");
     }
@@ -129,7 +134,8 @@ const NewJob = () => {
       startDateInput.classList.add("is-valid");
     } else {
       startDateInput.classList.add("is-invalid");
-      return false;  
+      // return false;  
+      errorCount++;
     }
 
     if (dateIsValid(endDateInput.value)) {
@@ -137,7 +143,8 @@ const NewJob = () => {
     } else {
       endDateErrorMsg.innerHTML = "Must be a valid date"
       endDateInput.classList.add("is-invalid");  
-      return false;
+      // return false;
+      errorCount++;
     }
 
     if (endDateAfterStartDate(startDateInput.value, endDateInput.value)) {
@@ -145,10 +152,11 @@ const NewJob = () => {
     } else {
       endDateErrorMsg.innerHTML = "End date must occur after start date"
       endDateInput.classList.add("is-invalid");  
-      return false;
+      // return false;
+      errorCount++;
     }
 
-    return true;
+    return (errorCount == 0);
 
   }
 
