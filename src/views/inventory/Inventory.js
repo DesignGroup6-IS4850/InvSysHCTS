@@ -30,6 +30,8 @@ const Inventory = () => {
     currentPage !== newPage && history.push(`/inventory?page=${newPage}`)
   }
 
+  const tableFilterProps = {placeholder: ' '}
+
   useEffect(() => {
     currentPage !== page && setPage(currentPage)
   }, [currentPage, page])
@@ -39,8 +41,23 @@ const Inventory = () => {
   }, []);
 
   async function fetchInventoryItems() {
-    const apiData = await API.graphql({ query: listInventoryItems });
-    setInventoryItems(apiData.data.listInventoryItems.items);
+    var apiData = await API.graphql({ query: listInventoryItems });
+
+    var retrievedInventoryItems = apiData.data.listInventoryItems.items;
+
+    var itemsNextToken = apiData.data.listInventoryItems.nextToken
+    while ( itemsNextToken != null) {
+      apiData = await API.graphql({ query: listInventoryItems, 
+                                    variables: {
+                                    nextToken: itemsNextToken
+        } 
+      });
+
+      itemsNextToken = apiData.data.listInventoryItems.nextToken
+      retrievedInventoryItems = retrievedInventoryItems.concat(apiData.data.listInventoryItems.items)
+    }
+
+    setInventoryItems(retrievedInventoryItems);
   }
 
   function calculatePageCount(itemsPerPage) {
@@ -71,7 +88,7 @@ const Inventory = () => {
             activePage={page}
             clickableRows
             columnFilter
-            tableFilter
+            tableFilter={tableFilterProps}
             sorter
             onPaginationChange={(itemsPerPage) => calculatePageCount(itemsPerPage)}
             onRowClick={(item) => history.push(`/inventory/${item.id}`)}
