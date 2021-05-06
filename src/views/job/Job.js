@@ -13,7 +13,8 @@ import {
     CModalBody,
     CModalFooter,
     CSelect,
-    CDataTable
+    CDataTable,
+    CTextarea
 } from '@coreui/react'
 
 import { API, graphqlOperation } from 'aws-amplify';
@@ -48,6 +49,7 @@ const Job = ({ match }) => {
     const [customer, setCustomer] = useState([]);
     const [customers, setCustomers] = useState([]);
     const [invoices, setInvoices] = useState([]);
+    const [notes, setNotes] = useState(null);
     const [showAddMaterialModal, setShowAddMaterialModal] = useState(false);
     const [showEditMaterialModal, setShowEditMaterialModal] = useState(false);
     const [showRemoveModal, setShowRemoveModal] = useState(false);
@@ -154,6 +156,7 @@ const Job = ({ match }) => {
               startDate
               endDate
               completed
+              notes
               customer {
                 address
                 email
@@ -205,6 +208,8 @@ const Job = ({ match }) => {
         setJob(apiData.data.getJob);
 
         setJobCustomer(apiData.data.getJob.customer);
+
+        setJobNotes(apiData.data.getJob.notes);
 
         var materialListArray = new Array();
         if (apiData.data.getJob.inventory.items != null) {
@@ -264,6 +269,14 @@ const Job = ({ match }) => {
         var customerDropdown = document.getElementById('customer');
         customerDropdown.innerHTML = optionHtml;  
         setCustomers(customerList); 
+    }
+
+    function setJobNotes(jobNotes) {
+        if (jobNotes != null) {
+            var notesTextArea = document.getElementById('notesTextArea');
+            notesTextArea.value = jobNotes;
+        }
+        hideNotesSaveButton();
     }
 
     function setJobCustomer(jobCustomer) {
@@ -503,6 +516,36 @@ const Job = ({ match }) => {
         } catch (e) {
             console.log(e);
         }
+    }
+
+    async function saveNotes() {
+
+        var notesText = document.getElementById('notesTextArea').value;
+
+        try {
+                var apiData =  await API.graphql({
+                    query: updateJobMutation, variables: {
+                        input: {
+                            id: job.id,
+                            notes: notesText
+                        }
+                    }
+                });
+
+            hideNotesSaveButton();
+
+        } catch (e) {
+            console.log(e);
+        }
+
+    }
+
+    function hideNotesSaveButton() {
+        document.getElementById('notesSaveButtonDiv').style.display = 'none';
+    }
+
+    function showNotesSaveButton() {
+        document.getElementById('notesSaveButtonDiv').style.display = 'block';     
     }
 
     function showConfirmation(title, text) {
@@ -1220,6 +1263,25 @@ const Job = ({ match }) => {
                             </CForm>
                         </CCardBody>
                     </CCard>
+                    <CCard>
+                        <CCardHeader>
+                            <h5>Notes</h5>
+                        </CCardHeader>
+                        <CCardBody>
+                            <CForm action="" method="post" className="form-horizontal">
+                            <CFormGroup row>
+                            </CFormGroup>
+                            <CCol>
+                                <CTextarea id="notesTextArea" onInput={showNotesSaveButton}></CTextarea>
+                            </CCol>
+                            </CForm>
+                            <CCardFooter id="jobDetailFooter">
+                              <div id="notesSaveButtonDiv">
+                              <span class="span-right"><CButton id="notesSaveButton" type="update" size="sm" color="primary" onClick={() => saveNotes()}><CIcon name="cil-check-circle" /> Save</CButton></span>
+                              </div>
+                            </CCardFooter>
+                        </CCardBody>  
+                    </CCard>  
                 </CCol>
                 <CCol xs="12" md="6">
                     <CCard>

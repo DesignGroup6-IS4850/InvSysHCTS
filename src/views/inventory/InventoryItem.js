@@ -30,7 +30,6 @@ const InventoryItem = ({ match }) => {
     const apiData = await API.graphql({ query: queries.getInventoryItem, variables: { id: id } });
     console.log("Current version: " + apiData.data.getInventoryItem._version);
     setInventoryItem(apiData.data.getInventoryItem);
-    console.log("Form State: " + apiData.data.getInventoryItem.brand);
   }
 
   async function updateInventoryItem() {
@@ -47,6 +46,7 @@ const InventoryItem = ({ match }) => {
             description: inventoryItem.description,
             brand: inventoryItem.brand,
             category: inventoryItem.category,
+            lowInventoryThreshold: inventoryItem.lowInventoryThreshold,
             _version: inventoryItem.version
           }
         }
@@ -99,6 +99,7 @@ const InventoryItem = ({ match }) => {
     var descriptionInput = document.getElementById("description");
     var brandInput = document.getElementById("brand");
     var categoryInput = document.getElementById("category");
+    var lowInventoryThresholdInput = document.getElementById("lowInventoryThreshold");
 
     nameInput.classList.remove("is-invalid");
     nameInput.classList.remove("is-valid");
@@ -114,6 +115,9 @@ const InventoryItem = ({ match }) => {
 
     categoryInput.classList.remove("is-invalid");
     categoryInput.classList.remove("is-valid");
+
+    lowInventoryThresholdInput.classList.remove("is-invalid");
+    lowInventoryThresholdInput.classList.remove("is-valid");
 
 
     if (nameInput.value == '') {
@@ -154,6 +158,15 @@ const InventoryItem = ({ match }) => {
       categoryInput.classList.add("is-valid"); 
     } catch (e) {
       categoryInput.classList.add("is-invalid");
+      // return false; 
+      errorCount++;
+    }
+
+    try {
+      parseInt(lowInventoryThresholdInput.value, 10);
+      lowInventoryThresholdInput.classList.add("is-valid"); 
+    } catch (e) {
+      lowInventoryThresholdInput.classList.add("is-invalid");
       // return false; 
       errorCount++;
     }
@@ -240,6 +253,16 @@ const InventoryItem = ({ match }) => {
                     <CInput type="category" id="category" name="category" placeholder="Enter Category..." autoComplete="category"
                       onChange={e => setInventoryItem({ ...inventoryItem, 'category': e.target.value })} value={inventoryItem.category} />
                   <div class="invalid-feedback">Category must not be blank</div>
+                  </CCol>
+                </CFormGroup>
+                <CFormGroup row>
+                  <CCol md="3">
+                    <CLabel htmlFor="lowInventoryThreshold">Low Inventory Threshold</CLabel>
+                  </CCol>
+                  <CCol xs="12" md="9">
+                    <CInput type="lowInventoryThreshold" id="lowInventoryThreshold" name="lowInventoryThreshold" placeholder="Enter Threshold Value..." autoComplete="lowInventoryThreshold"
+                      onChange={e => setInventoryItem({ ...inventoryItem, 'lowInventoryThreshold': ensureNumeric(e.target.value) })} value={inventoryItem.lowInventoryThreshold} />
+                  <div class="invalid-feedback">Quantity must be a number with no decimals</div>
                   </CCol>
                 </CFormGroup>
               </CForm>

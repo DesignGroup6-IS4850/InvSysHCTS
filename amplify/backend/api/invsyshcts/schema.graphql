@@ -5,6 +5,7 @@ type InventoryItem @model {
   description: String
   brand: String
   category: String
+  lowInventoryThreshold: Int
   jobs: [JobInventory] @connection(name:"InventoryJob")
   _version: Int
 }
@@ -19,6 +20,7 @@ type Job @model {
   inventory: [JobInventory] @connection(name:"JobInventory")
   invoices: [Invoice] @connection(name: "JobInvoices")
   laborItems: [LaborItem] @connection(name: "JobLaborItems")
+  notes: String
   _version: Int
 }
 

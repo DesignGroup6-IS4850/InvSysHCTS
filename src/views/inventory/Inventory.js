@@ -32,6 +32,8 @@ const Inventory = () => {
 
   const tableFilterProps = {placeholder: ' '}
 
+  const noItemsViewProps={ noResults: 'No items meet this filter criteria', noItems: 'No items to show' }
+
   useEffect(() => {
     currentPage !== page && setPage(currentPage)
   }, [currentPage, page])
@@ -64,6 +66,22 @@ const Inventory = () => {
     setPageCount(Math.ceil(inventoryItems.length/itemsPerPage));
   }
 
+  const getStatusBadge = (item)=>{
+    if (item.quantity < 100) {
+      return 'danger'
+    } else {
+      return ''
+    }
+  }
+
+  const getStatusText = (item)=>{
+    if ((item.lowInventoryThreshold !=null) && (item.quantity <= item.lowInventoryThreshold)) {
+      return 'Low Inventory'
+    } else {
+      return ''
+    }
+  }
+
   return (
     <CRow>
       <CCol xl={12}>
@@ -79,10 +97,9 @@ const Inventory = () => {
             items={inventoryItems}
             fields={[
               { key: 'name', _classes: 'font-weight-bold' },
-              'quantity', 'description', 'brand', 'category'
+              'quantity', 'description', 'brand', 'category', 'status'
             ]}
             hover
-            striped
             itemsPerPage={10}
             itemsPerPageSelect
             activePage={page}
@@ -91,7 +108,17 @@ const Inventory = () => {
             tableFilter={tableFilterProps}
             sorter
             onPaginationChange={(itemsPerPage) => calculatePageCount(itemsPerPage)}
-            onRowClick={(item) => history.push(`/inventory/${item.id}`)}
+            onRowClick={(item) => history.push(`/inventory/${item.id}`)} 
+            noItemsView={noItemsViewProps}
+            scopedSlots = {{
+              'status':
+                (item)=>(
+                  <td>
+                    <CBadge color={getStatusBadge(item)}>
+                    {getStatusText(item)}
+                    </CBadge>
+                  </td>
+                )}}
           />
           <CPagination
             activePage={page}

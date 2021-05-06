@@ -10,6 +10,7 @@ export const getInventoryItem = /* GraphQL */ `
       description
       brand
       category
+      lowInventoryThreshold
       jobs {
         items {
           id
@@ -40,6 +41,7 @@ export const listInventoryItems = /* GraphQL */ `
         description
         brand
         category
+        lowInventoryThreshold
         jobs {
           nextToken
         }
@@ -102,6 +104,7 @@ export const getJob = /* GraphQL */ `
         }
         nextToken
       }
+      notes
       _version
       createdAt
       updatedAt
@@ -140,6 +143,7 @@ export const listJobs = /* GraphQL */ `
         laborItems {
           nextToken
         }
+        notes
         _version
         createdAt
         updatedAt
@@ -179,6 +183,7 @@ export const getJobInventory = /* GraphQL */ `
         laborItems {
           nextToken
         }
+        notes
         _version
         createdAt
         updatedAt
@@ -190,6 +195,7 @@ export const getJobInventory = /* GraphQL */ `
         description
         brand
         category
+        lowInventoryThreshold
         jobs {
           nextToken
         }
@@ -219,6 +225,7 @@ export const listJobInventorys = /* GraphQL */ `
           startDate
           endDate
           completed
+          notes
           _version
           createdAt
           updatedAt
@@ -230,6 +237,7 @@ export const listJobInventorys = /* GraphQL */ `
           description
           brand
           category
+          lowInventoryThreshold
           _version
           createdAt
           updatedAt
@@ -273,6 +281,7 @@ export const getLaborItem = /* GraphQL */ `
         laborItems {
           nextToken
         }
+        notes
         _version
         createdAt
         updatedAt
@@ -300,6 +309,7 @@ export const listLaborItems = /* GraphQL */ `
           startDate
           endDate
           completed
+          notes
           _version
           createdAt
           updatedAt
@@ -390,6 +400,7 @@ export const getInvoice = /* GraphQL */ `
         laborItems {
           nextToken
         }
+        notes
         _version
         createdAt
         updatedAt
@@ -421,6 +432,7 @@ export const listInvoices = /* GraphQL */ `
           startDate
           endDate
           completed
+          notes
           _version
           createdAt
           updatedAt
@@ -454,6 +466,7 @@ export const getInvoiceItem = /* GraphQL */ `
           startDate
           endDate
           completed
+          notes
           _version
           createdAt
           updatedAt

@@ -10,6 +10,7 @@ export const onCreateInventoryItem = /* GraphQL */ `
       description
       brand
       category
+      lowInventoryThreshold
       jobs {
         items {
           id
@@ -35,6 +36,7 @@ export const onUpdateInventoryItem = /* GraphQL */ `
       description
       brand
       category
+      lowInventoryThreshold
       jobs {
         items {
           id
@@ -60,6 +62,7 @@ export const onDeleteInventoryItem = /* GraphQL */ `
       description
       brand
       category
+      lowInventoryThreshold
       jobs {
         items {
           id
@@ -127,6 +130,7 @@ export const onCreateJob = /* GraphQL */ `
         }
         nextToken
       }
+      notes
       _version
       createdAt
       updatedAt
@@ -184,6 +188,7 @@ export const onUpdateJob = /* GraphQL */ `
         }
         nextToken
       }
+      notes
       _version
       createdAt
       updatedAt
@@ -241,6 +246,7 @@ export const onDeleteJob = /* GraphQL */ `
         }
         nextToken
       }
+      notes
       _version
       createdAt
       updatedAt
@@ -278,6 +284,7 @@ export const onCreateJobInventory = /* GraphQL */ `
         laborItems {
           nextToken
         }
+        notes
         _version
         createdAt
         updatedAt
@@ -289,6 +296,7 @@ export const onCreateJobInventory = /* GraphQL */ `
         description
         brand
         category
+        lowInventoryThreshold
         jobs {
           nextToken
         }
@@ -332,6 +340,7 @@ export const onUpdateJobInventory = /* GraphQL */ `
         laborItems {
           nextToken
         }
+        notes
         _version
         createdAt
         updatedAt
@@ -343,6 +352,7 @@ export const onUpdateJobInventory = /* GraphQL */ `
         description
         brand
         category
+        lowInventoryThreshold
         jobs {
           nextToken
         }
@@ -386,6 +396,7 @@ export const onDeleteJobInventory = /* GraphQL */ `
         laborItems {
           nextToken
         }
+        notes
         _version
         createdAt
         updatedAt
@@ -397,6 +408,7 @@ export const onDeleteJobInventory = /* GraphQL */ `
         description
         brand
         category
+        lowInventoryThreshold
         jobs {
           nextToken
         }
@@ -441,6 +453,7 @@ export const onCreateLaborItem = /* GraphQL */ `
         laborItems {
           nextToken
         }
+        notes
         _version
         createdAt
         updatedAt
@@ -482,6 +495,7 @@ export const onUpdateLaborItem = /* GraphQL */ `
         laborItems {
           nextToken
         }
+        notes
         _version
         createdAt
         updatedAt
@@ -523,6 +537,7 @@ export const onDeleteLaborItem = /* GraphQL */ `
         laborItems {
           nextToken
         }
+        notes
         _version
         createdAt
         updatedAt
@@ -618,6 +633,7 @@ export const onCreateInvoice = /* GraphQL */ `
         laborItems {
           nextToken
         }
+        notes
         _version
         createdAt
         updatedAt
@@ -672,6 +688,7 @@ export const onUpdateInvoice = /* GraphQL */ `
         laborItems {
           nextToken
         }
+        notes
         _version
         createdAt
         updatedAt
@@ -726,6 +743,7 @@ export const onDeleteInvoice = /* GraphQL */ `
         laborItems {
           nextToken
         }
+        notes
         _version
         createdAt
         updatedAt
@@ -757,6 +775,7 @@ export const onCreateInvoiceItem = /* GraphQL */ `
           startDate
           endDate
           completed
+          notes
           _version
           createdAt
           updatedAt
@@ -792,6 +811,7 @@ export const onUpdateInvoiceItem = /* GraphQL */ `
           startDate
           endDate
           completed
+          notes
           _version
           createdAt
           updatedAt
@@ -827,6 +847,7 @@ export const onDeleteInvoiceItem = /* GraphQL */ `
           startDate
           endDate
           completed
+          notes
           _version
           createdAt
           updatedAt
