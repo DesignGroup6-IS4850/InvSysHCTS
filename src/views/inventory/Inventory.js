@@ -67,7 +67,7 @@ const Inventory = () => {
   }
 
   const getStatusBadge = (item)=>{
-    if (item.quantity < 100) {
+    if (inventoryIsLow(item)) {
       return 'danger'
     } else {
       return ''
@@ -75,11 +75,15 @@ const Inventory = () => {
   }
 
   const getStatusText = (item)=>{
-    if ((item.lowInventoryThreshold !=null) && (item.quantity <= item.lowInventoryThreshold)) {
+    if (inventoryIsLow(item)) {
       return 'Low Inventory'
     } else {
       return ''
     }
+  }
+
+  const inventoryIsLow = (item)=>{
+    return ((item.lowInventoryThreshold !=null) && (item.quantity <= item.lowInventoryThreshold));
   }
 
   return (
