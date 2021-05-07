@@ -7,7 +7,8 @@ import {
   CCol,
   CDataTable,
   CRow,
-  CPagination
+  CPagination,
+  CBadge
 } from '@coreui/react'
 
 import { API } from 'aws-amplify';
@@ -45,6 +46,22 @@ const Jobs = () => {
     setPageCount(Math.ceil(jobs.length/itemsPerPage));
   }
 
+  const getStatusBadge = (item)=>{
+    if (item.completed) {
+      return 'success'
+    } else {
+      return 'info'
+    }
+  }
+
+  const getStatusText = (item)=>{
+    if (item.completed) {
+      return 'Completed'
+    } else {
+      return 'Open'
+    }
+  }
+
   return (
     <CRow>
       <CCol xl={12}>
@@ -58,7 +75,7 @@ const Jobs = () => {
             items={jobs}
             fields={[
               { key: 'name', _classes: 'font-weight-bold' },
-              'startDate', 'endDate'
+              'startDate', 'endDate', "status"
             ]}
             hover
             striped
@@ -71,6 +88,15 @@ const Jobs = () => {
             sorter
             onPaginationChange={(itemsPerPage) => calculatePageCount(itemsPerPage)}
             onRowClick={(item) => history.push(`/job/${item.id}`)}
+            scopedSlots = {{
+              'status':
+                (item)=>(
+                  <td>
+                    <CBadge color={getStatusBadge(item)}>
+                    {getStatusText(item)}
+                    </CBadge>
+                  </td>
+                )}}
           />
           <CPagination
             activePage={page}

@@ -33,6 +33,7 @@ import {
 } from '../../graphql/mutations';
 import { useHistory, useLocation } from "react-router-dom";
 import { listInventoryItems } from '../../graphql/queries';
+import { listJobInventorys } from '../../graphql/queries';
 
 import { Modal } from '@coreui/coreui';
 
@@ -55,6 +56,7 @@ const Job = ({ match }) => {
     const [showRemoveModal, setShowRemoveModal] = useState(false);
     const [showLaborModal, setShowLaborModal] = useState(false);
     const [jobCompleted, setJobCompleted] = useState(false);
+    const [reservedInventory, setReservedInventory] = useState(null);
 
     const materialFields = [
         { key: 'name', _style: { width: '40%' } },
@@ -135,6 +137,10 @@ const Job = ({ match }) => {
         fetchCustomers();
     }, []);
 
+    useEffect(() => {
+        fetchJobInventorys();
+    }, []);
+
     const fetchCustomers = useCallback(async() => {
         const apiData = await API.graphql({ query: listCustomers });
         loadCustomerOptions(apiData.data.listCustomers.items);
@@ -143,6 +149,36 @@ const Job = ({ match }) => {
     async function fetchInventoryItems() {
         const apiData = await API.graphql({ query: listInventoryItems });
         setInventoryItems(apiData.data.listInventoryItems.items);
+    }
+
+    async function fetchJobInventorys() {
+        const apiData = await API.graphql({ query: listJobInventorys });
+        createReservedInventory(apiData.data.listJobInventorys.items);  
+    }
+
+    function createReservedInventory(jobMaterials) {
+        var reservedInventoryMap = new Map();
+        jobMaterials.map(material => {
+            if ((material.job != null) && (material.inventoryItem != null) && (material.jobQuantity != null)) {
+                if ((material.job.id != job.id) && (!material.job.completed)) {
+                    var currentReservedQuantity = 0;
+                    if (reservedInventoryMap.has(material.inventoryItem.id)) {
+                        currentReservedQuantity = reservedInventoryMap.get(material.inventoryItem.id) + material.jobQuantity
+                    } else {
+                        currentReservedQuantity = material.jobQuantity
+                    }       
+                    reservedInventoryMap.set(material.inventoryItem.id, currentReservedQuantity)            
+                }
+            }
+        })    
+
+        reservedInventoryMap.forEach(function(value, key) {
+            console.log(key + ' = ' + value)
+        })
+
+        setReservedInventory(reservedInventoryMap)
+
+
     }
 
     async function fetchJob(id) {
@@ -936,8 +972,14 @@ const Job = ({ match }) => {
         if ((quantity != '') && (Number.isInteger(Number(quantity)))) {
             var inventoryItem = inventoryItems.find(item => item.id == inventoryId);
             if (inventoryItem != null) {
-                if (quantity > inventoryItem.quantity) {
-                    quantityErrorMsg.innerHTML = "Material quantity must be less than or equal to inventory quantity";
+
+                var currentReservedQuantity = 0;
+                if (reservedInventory.has(inventoryItem.id)) {
+                    currentReservedQuantity = reservedInventory.get(inventoryItem.id)
+                }
+
+                if (quantity > inventoryItem.quantity - currentReservedQuantity) {
+                    quantityErrorMsg.innerHTML = "Entered quantity exceeds current inventory plus amounts reserved to other open jobs";
                     return false;
                 } else {
                     return true;
