@@ -57,6 +57,7 @@ const Job = ({ match }) => {
     const [showLaborModal, setShowLaborModal] = useState(false);
     const [jobCompleted, setJobCompleted] = useState(false);
     const [reservedInventory, setReservedInventory] = useState(null);
+    const [availableInventory, setAvailableInventory] = useState([]);
 
     const materialFields = [
         { key: 'name', _style: { width: '40%' } },
@@ -103,6 +104,10 @@ const Job = ({ match }) => {
     const invoiceFields = [
         { key: 'number', _style: { width: '50%' } },
         { key: 'transDate', _style: { width: '50%' } }
+    ]
+
+    const addMaterialFields = [
+        { key: 'name', label:'Available Inventory', _style: { width: '100%' }  }
     ]
 
     const toggleAddMaterialModal = () => {
@@ -617,15 +622,16 @@ const Job = ({ match }) => {
     }
 
     function launchAddMaterialModal() {
-        var modalElement = document.getElementById('addMaterialModal');
-        var optionHtml = "<option disabled selected value> -- select an inventory item -- </option>";
+        var availableInventoryList = new Array();
         for (const inventoryItem of inventoryItems) {
             if((materialList.find(item => item.inventoryId == inventoryItem.id) == null)){
-                optionHtml = optionHtml + "<option value=\'" + inventoryItem.id + "\'>" + inventoryItem.name + "</option>";
+                availableInventoryList.push({id: inventoryItem.id, name: inventoryItem.name});
             }
         }
-        document.getElementById('selectMaterialInventory').innerHTML = optionHtml;
+        setAvailableInventory(availableInventoryList);
+        document.getElementById('addMaterialNameInput').value = "";
         document.getElementById('addMaterialQuantityInput').value = "";
+        document.getElementById('addMaterialPriceInput').value = "";
         clearAddMaterialValidationMessages();
         toggleAddMaterialModal();
     }
@@ -668,13 +674,14 @@ const Job = ({ match }) => {
     }
 
     function okAddMaterialModal() {
-        var selectMaterialInventory = document.getElementById("selectMaterialInventory");
+        var addMaterialNameInput = document.getElementById("addMaterialNameInput");
+        var addMaterialIdInput = document.getElementById("addMaterialIdInput");
         var addMaterialQuantityInput = document.getElementById("addMaterialQuantityInput");
         var addMaterialPriceInput = document.getElementById("addMaterialPriceInput");
 
         if (!validateAddMaterial()) return;
 
-        addMaterialItem(job.id, selectMaterialInventory.value, 
+        addMaterialItem(job.id, addMaterialIdInput.value, 
             parseInt(addMaterialQuantityInput.value, 10), parseFloat(addMaterialPriceInput.value));
         toggleAddMaterialModal();
     }
@@ -875,7 +882,7 @@ const Job = ({ match }) => {
       };
 
       function clearAddMaterialValidationMessages() {
-        var inventoryInput = document.getElementById("selectMaterialInventory");
+        var inventoryInput = document.getElementById("addMaterialNameInput");
         var quantityInput = document.getElementById("addMaterialQuantityInput");
         var priceInput = document.getElementById("addMaterialPriceInput");
     
@@ -919,22 +926,23 @@ const Job = ({ match }) => {
 
         var errorCount = 0;
 
-        var inventoryInput = document.getElementById("selectMaterialInventory");
+        var inventoryNameInput = document.getElementById("addMaterialNameInput");
+        var inventoryIdInput = document.getElementById("addMaterialIdInput");
         var quantityInput = document.getElementById("addMaterialQuantityInput");
         var priceInput = document.getElementById("addMaterialPriceInput");
         var quantityErrorMsg = document.getElementById("addMaterialQuantityError");
     
         clearAddMaterialValidationMessages();
     
-        if (inventoryInput.value == '') {
-            inventoryInput.classList.add("is-invalid");
+        if (inventoryNameInput.value == '') {
+            inventoryNameInput.classList.add("is-invalid");
             // return false;
             errorCount++;
         } else {
-            inventoryInput.classList.add("is-valid");
+            inventoryNameInput.classList.add("is-valid");
         }
 
-        if (quantityIsValid(quantityInput.value, quantityErrorMsg, inventoryInput.value)) {
+        if (quantityIsValid(quantityInput.value, quantityErrorMsg, inventoryIdInput.value)) {
             quantityInput.classList.add("is-valid");
         } else {
             quantityInput.classList.add("is-invalid");  
@@ -1048,6 +1056,11 @@ const Job = ({ match }) => {
         return (errorCount == 0);
     }
 
+    function setAddMaterialInput(item) {
+        document.getElementById("addMaterialNameInput").value = item.name;
+        document.getElementById("addMaterialIdInput").value = item.id;
+    }
+
     return (
         <>
 
@@ -1091,38 +1104,57 @@ const Job = ({ match }) => {
             <CModal
                 id="addMaterialModal"
                 show={showAddMaterialModal}
-                onClose={toggleAddMaterialModal}
+                onClose={toggleAddMaterialModal} 
+                size="xl"
             >
                 <CModalHeader id="addMaterialModalTitle"></CModalHeader>
                 <CModalBody>
                     <CForm action="" className="form-horizontal">
-                        <CFormGroup row>
-                            <CCol md="3">
-                                <CLabel htmlFor="selectMaterialInventory">Inventory Item</CLabel>
-                            </CCol>
-                            <CCol xs="12" md="9">
-                                <CSelect id="selectMaterialInventory" name="selectMaterialInventory" />
-                                <div class="invalid-feedback">Inventory item must be selected</div>
-                            </CCol>
-                        </CFormGroup>
-                        <CFormGroup row>
-                            <CCol md="3">
-                                <CLabel htmlFor="addMaterialQuantityInput">Quantity</CLabel>
-                            </CCol>
-                            <CCol xs="12" md="9">
-                                <CInput id="addMaterialQuantityInput" name="addMaterialQuantityInput" type="number" placeholder="Enter Quantity..." />
-                                <div id="addMaterialQuantityError" class="invalid-feedback"></div>
-                            </CCol>
-                        </CFormGroup>
-                        <CFormGroup row>
-                            <CCol md="3">
-                                <CLabel htmlFor="addMaterialPriceInput">Price</CLabel>
-                            </CCol>
-                            <CCol xs="12" md="9">
-                                <CInput id="addMaterialPriceInput" name="addMaterialPriceInput" type="number" placeholder="Enter Price..." />
-                                <div class="invalid-feedback">Please enter a valid price</div>
-                            </CCol>
-                        </CFormGroup>
+                        <CRow>
+                        <CCol>
+                            <CDataTable
+                                fields={addMaterialFields}
+                                items={availableInventory}
+                                tableFilter={tableFilterProps}
+                                footer
+                                itemsPerPage={5}
+                                hover
+                                sorter
+                                pagination
+                                onRowClick={(item) => setAddMaterialInput(item)}
+                            />     
+                        </CCol>
+                        <CCol>
+                            <CFormGroup row>
+                                <CCol md="3">
+                                    <CLabel htmlFor="addMaterialNameInput">Inventory Item</CLabel>
+                                </CCol>
+                                <CCol xs="12" md="9">
+                                    <CInput readonly="true" id="addMaterialNameInput" name="addMaterialNameInput" type="text" placeholder="Select Inventory Item..." />
+                                    <hidden id="addMaterialIdInput"/>
+                                    <div class="invalid-feedback">Inventory item must be selected</div>
+                                </CCol>
+                            </CFormGroup>
+                            <CFormGroup row>
+                                <CCol md="3">
+                                    <CLabel htmlFor="addMaterialQuantityInput">Quantity</CLabel>
+                                </CCol>
+                                <CCol xs="12" md="9">
+                                    <CInput id="addMaterialQuantityInput" name="addMaterialQuantityInput" type="number" placeholder="Enter Quantity..." />
+                                    <div id="addMaterialQuantityError" class="invalid-feedback"></div>
+                                </CCol>
+                            </CFormGroup>
+                            <CFormGroup row>
+                                <CCol md="3">
+                                    <CLabel htmlFor="addMaterialPriceInput">Price</CLabel>
+                                </CCol>
+                                <CCol xs="12" md="9">
+                                    <CInput id="addMaterialPriceInput" name="addMaterialPriceInput" type="number" placeholder="Enter Price..." />
+                                    <div class="invalid-feedback">Please enter a valid price</div>
+                                </CCol>
+                            </CFormGroup>
+                        </CCol>
+                        </CRow>
                     </CForm>
                 </CModalBody>
                 <CModalFooter>
