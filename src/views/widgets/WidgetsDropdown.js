@@ -3,142 +3,95 @@ import {
   CWidgetDropdown,
   CRow,
   CCol,
-  CDropdown,
-  CDropdownMenu,
-  CDropdownItem,
-  CDropdownToggle
+  CCard,
+
 } from '@coreui/react'
-import CIcon from '@coreui/icons-react'
-import ChartLineSimple from '../charts/ChartLineSimple'
-import ChartBarSimple from '../charts/ChartBarSimple'
+import Calendar from '../calendar/Calendar'
+import Inventory from '../inventory/Inventory'
+import { listJobInventorys, listJobs } from 'src/graphql/queries'
+import Jobs from '../job/Jobs'
+import { createInventoryItem } from 'src/graphql/mutations'
+import NewInventoryItem from '../inventory/NewInventoryItem'
+import Alerts from '../notifications/alerts/Alerts'
+import { AmplifyFederatedButtons } from '@aws-amplify/ui-react'
+import Customer from '../customer/Customer'
+import Customers from '../customer/Customers'
 
 const WidgetsDropdown = () => {
   // render
   return (
     <CRow>
-      <CCol sm="6" lg="3">
-        <CWidgetDropdown
-          color="gradient-primary"
-          header="12"
-          text="Active Jobs"
-          footerSlot={
-            <ChartLineSimple
-              pointed
-              className="c-chart-wrapper mt-3 mx-3"
-              style={{height: '70px'}}
-              dataPoints={[65, 59, 84, 84, 51, 55, 40]}
-              pointHoverBackgroundColor="primary"
-              label="Jobs"
-              labels="months"
-            />
-          }
+      <CCol sm="12" lg="6">
+        <Calendar
+
+        >  
+        </Calendar>
+      </CCol> 
+
+
+      <CCol sm="12" lg="6">
+        <Jobs
+  
         >
-          <CDropdown>
-            <CDropdownToggle color="transparent">
-              <CIcon name="cil-settings"/>
-            </CDropdownToggle>
-            <CDropdownMenu className="pt-0" placement="bottom-end">
-              <CDropdownItem>Action</CDropdownItem>
-              <CDropdownItem>Another action</CDropdownItem>
-              <CDropdownItem>Something else here...</CDropdownItem>
-              <CDropdownItem disabled>Disabled action</CDropdownItem>
-            </CDropdownMenu>
-          </CDropdown>
-        </CWidgetDropdown>
+        </Jobs>
       </CCol>
 
-      <CCol sm="6" lg="3">
-        <CWidgetDropdown
-          color="gradient-info"
-          header="12"
-          text="Active Jobs"
-          footerSlot={
-            <ChartLineSimple
-              pointed
-              className="mt-3 mx-3"
-              style={{height: '70px'}}
-              dataPoints={[1, 18, 9, 17, 34, 22, 11]}
-              pointHoverBackgroundColor="info"
-              options={{ elements: { line: { tension: 0.00001 }}}}
-              label="Jobs"
-              labels="months"
-            />
-          }
-        >
-          <CDropdown>
-            <CDropdownToggle caret={false} color="transparent">
-              <CIcon name="cil-location-pin"/>
-            </CDropdownToggle>
-            <CDropdownMenu className="pt-0" placement="bottom-end">
-              <CDropdownItem>Action</CDropdownItem>
-              <CDropdownItem>Another action</CDropdownItem>
-              <CDropdownItem>Something else here...</CDropdownItem>
-              <CDropdownItem disabled>Disabled action</CDropdownItem>
-            </CDropdownMenu>
-          </CDropdown>
-        </CWidgetDropdown>
+
+      <CCol sm="12" lg="6">
+        <Inventory 
+  
+        >  
+        </Inventory>
       </CCol>
 
-      <CCol sm="6" lg="3">
-        <CWidgetDropdown
-          color="gradient-warning"
-          header="12"
-          text="Active Jobs"
-          footerSlot={
-            <ChartLineSimple
-              className="mt-3"
-              style={{height: '70px'}}
-              backgroundColor="rgba(255,255,255,.2)"
-              dataPoints={[78, 81, 80, 45, 34, 12, 40]}
-              options={{ elements: { line: { borderWidth: 2.5 }}}}
-              pointHoverBackgroundColor="warning"
-              label="Jobs"
-              labels="months"
-            />
-          }
-        >
-          <CDropdown>
-            <CDropdownToggle color="transparent">
-              <CIcon name="cil-settings"/>
-            </CDropdownToggle>
-            <CDropdownMenu className="pt-0" placement="bottom-end">
-              <CDropdownItem>Action</CDropdownItem>
-              <CDropdownItem>Another action</CDropdownItem>
-              <CDropdownItem>Something else here...</CDropdownItem>
-              <CDropdownItem disabled>Disabled action</CDropdownItem>
-            </CDropdownMenu>
-          </CDropdown>
-        </CWidgetDropdown>
+      <CCol sm="12" lg="6">
+        <Customers></Customers>
+        
       </CCol>
 
-      <CCol sm="6" lg="3">
-        <CWidgetDropdown
-          color="gradient-danger"
-          header="12"
-          text="Active Jobs"
-          footerSlot={
-            <ChartBarSimple
-              className="mt-3 mx-3"
-              style={{height: '70px'}}
-              backgroundColor="rgb(250, 152, 152)"
-              label="Jobs"
-              labels="months"
-            />
-          }
-        >
-          <CDropdown>
-            <CDropdownToggle caret className="text-white" color="transparent">
-              <CIcon name="cil-settings"/>
-            </CDropdownToggle>
-            <CDropdownMenu className="pt-0" placement="bottom-end">
-              <CDropdownItem>Action</CDropdownItem>
-              <CDropdownItem>Another action</CDropdownItem>
-              <CDropdownItem>Something else here...</CDropdownItem>
-              <CDropdownItem disabled>Disabled action</CDropdownItem>
-            </CDropdownMenu>
-          </CDropdown>
-        </CWidgetDropdown>
-      </CCol>
+      {/* <CCol sm="12" lg="6"> */}
+               {/* <div class="card text-center">
+                    <div class="card-header">
+                      <ul class="nav nav-pills card-header-pills">
+                        <li class="nav-item">
+                          <a class="nav-link active" href="#">Active</a>
+                        </li>
+                        <li class="nav-item">
+                          <a class="nav-link" href="#">Link</a>
+                        </li>
+                        <li class="nav-item">
+                          <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
+                        </li>
+                      </ul>
+                    </div>
+                  <div class="card-body">
+                    <h5 class="card-title">Special title treatment</h5>
+                    <p class="card-text">It's a broader card with text below as a natural lead-in to extra content. This content is a little longer.</p>
+                    <a href="#" class="btn btn-primary">Go somewhere</a>
+                  </div>
+                </div>  */}
+
+                {/* <div class="card text-center">
+                  <div class="card-header">
+                    <ul class="nav nav-pills card-header-pills">
+                      <li class="card title">Helpful Links</li>
+                    </ul>
+                  </div>
+                    <div class="card-body">
+                      <h5 class="card-title"></h5>
+                      <p class="card-text">Amazon</p>
+                      <a href="#" class="btn btn-primary">Amazon.com</a>
+                    </div>
+                    <div class="card-body">
+                      <h5 class="card-title"></h5>
+                      <p class="card-text">Home Depot</p>
+                      <a href="#" class="btn btn-primary">HomeDepot.com</a>
+                    </div>
+                </div> */}
+
+      {/* </CCol> */}
+
+      
     </CRow>
   )
 }

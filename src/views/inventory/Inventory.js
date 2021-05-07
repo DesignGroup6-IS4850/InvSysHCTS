@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useContext  } from 'react'
 import { useHistory, useLocation, Link } from 'react-router-dom'
 import {
   CBadge,
@@ -16,6 +16,8 @@ import {
 
 import { API } from 'aws-amplify';
 import { listInventoryItems } from '../../graphql/queries';
+
+import {NotificationContext} from '../../notifications/NotificationContext'
 
 const Inventory = () => {
   const history = useHistory()
@@ -41,6 +43,8 @@ const Inventory = () => {
   useEffect(() => {
     fetchInventoryItems();
   }, []);
+
+  const [notifications, setNotifications] = useContext(NotificationContext);
 
   async function fetchInventoryItems() {
     var apiData = await API.graphql({ query: listInventoryItems });
@@ -83,7 +87,7 @@ const Inventory = () => {
   }
 
   const inventoryIsLow = (item)=>{
-    return ((item.lowInventoryThreshold !=null) && (item.quantity <= item.lowInventoryThreshold));
+    return ((item.lowInventoryThreshold !=null) && (item.quantity <= item.lowInventoryThreshold))
   }
 
   return (

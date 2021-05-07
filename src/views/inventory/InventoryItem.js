@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useContext } from 'react'
 import { CCard, CCardBody, CCardHeader, CCol, CRow } from '@coreui/react'
 import CIcon from '@coreui/icons-react'
 import {
@@ -17,10 +17,13 @@ import { useHistory } from "react-router-dom";
 
 import { Modal } from '@coreui/coreui'
 
+import {NotificationContext} from '../../notifications/NotificationContext'
+
 const InventoryItem = ({ match }) => {
 
   const [inventoryItem, setInventoryItem] = useState([]);
   const history = useHistory();
+  const [notifications, setNotifications] = useContext(NotificationContext);
 
   useEffect(() => {
     fetchInventoryItem(match.params.id);
@@ -51,11 +54,37 @@ const InventoryItem = ({ match }) => {
           }
         }
       });
+
+      updateLowStockNotification();
+
       showConfirmation("Update Successful", "'" + inventoryItem.name + "' was updated successfully")
     } catch (e) {
       console.log(e);
     }
 
+  }
+
+  function updateLowStockNotification() {
+    var newNotifications = notifications.map((x) => x);
+    var notificationText = "Low Stock - " + inventoryItem.name;
+
+    var currentNotification = newNotifications.find(notification => notification.text == notificationText);
+
+    if (inventoryIsLow()) {
+      if (currentNotification == null) {
+        newNotifications.push({text: notificationText})
+      }
+    } else {
+      if (currentNotification != null) {
+        var index = newNotifications.indexOf(currentNotification);
+        newNotifications.splice(index, 1);
+      }
+    }
+    setNotifications(newNotifications)
+  }
+
+  function inventoryIsLow() {
+    return ((inventoryItem.lowInventoryThreshold !=null) && (inventoryItem.quantity <= inventoryItem.lowInventoryThreshold))
   }
 
   async function deleteInventoryItem() {

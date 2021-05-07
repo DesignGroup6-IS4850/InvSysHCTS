@@ -15,6 +15,8 @@ import CIcon from '@coreui/icons-react'
 // routes config
 import routes from '../routes'
 
+import { TheHeaderDropdownNotif }  from './index'
+
 /* import { 
   TheHeaderDropdown,
   TheHeaderDropdownMssg,
@@ -75,12 +77,12 @@ const TheHeader = () => {
         </CHeaderNavItem>
       </CHeaderNav>
 
-{/*       <CHeaderNav className="px-3">
+      <CHeaderNav className="px-3">
         <TheHeaderDropdownNotif/>
-        <TheHeaderDropdownTasks/>
-        <TheHeaderDropdownMssg/>
-        <TheHeaderDropdown/>
-      </CHeaderNav> */}
+        {/* <TheHeaderDropdownTasks/> */}
+        {/* <TheHeaderDropdownMssg/> */}
+        {/* <TheHeaderDropdown/> */}
+      </CHeaderNav>
 
       <CSubheader className="px-3 justify-content-between">
         <CBreadcrumbRouter 
