@@ -147,8 +147,23 @@ const Job = ({ match }) => {
      }, []);
 
     async function fetchInventoryItems() {
-        const apiData = await API.graphql({ query: listInventoryItems });
-        setInventoryItems(apiData.data.listInventoryItems.items);
+        var apiData = await API.graphql({ query: listInventoryItems });
+
+        var retrievedInventoryItems = apiData.data.listInventoryItems.items;
+
+        var itemsNextToken = apiData.data.listInventoryItems.nextToken
+        while ( itemsNextToken != null) {
+            apiData = await API.graphql({ query: listInventoryItems, 
+                                        variables: {
+                                        nextToken: itemsNextToken
+            } 
+            });
+
+            itemsNextToken = apiData.data.listInventoryItems.nextToken
+            retrievedInventoryItems = retrievedInventoryItems.concat(apiData.data.listInventoryItems.items)
+        }
+
+        setInventoryItems(retrievedInventoryItems);
     }
 
     async function fetchJobInventorys() {
