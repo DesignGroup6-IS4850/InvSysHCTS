@@ -21,6 +21,8 @@ import { useHistory } from "react-router-dom";
 
 import { Modal } from '@coreui/coreui';
 
+import NewInventoryItemHelpModal from '../help/NewInventoryItemHelpModal'
+
 const initialFormState = { name: '', quantity: 0, description: '', brand: '', category: '', lowInventoryThreshold: 0 }
 
 const NewInventoryItem = () => {
@@ -204,7 +206,7 @@ const NewInventoryItem = () => {
         <CCol xs="12" md="6">
           <CCard>
             <CCardHeader>
-              <h5>New Inventory Item</h5>
+              <h5>New Inventory Item<span class="span-right"><NewInventoryItemHelpModal/></span></h5>
             </CCardHeader>
             <CCardBody>
               <CForm action="" method="post" className="form-horizontal">

@@ -17,6 +17,8 @@ import { useHistory } from "react-router-dom";
 
 import { Modal } from '@coreui/coreui'
 
+import CustomerDetailHelpModal from '../help/CustomerDetailHelpModal'
+
 const Customer = ({ match }) => {
 
   const [customer, setCustomer] = useState([]);
@@ -180,7 +182,7 @@ const Customer = ({ match }) => {
         <CCol xs="12" md="6">
           <CCard>
             <CCardHeader>
-              <h5>Customer</h5>
+              <h5>Customer<span class="span-right"><CustomerDetailHelpModal/></span></h5>
           </CCardHeader>
             <CCardBody>
               <CForm action="" method="post" className="form-horizontal">

@@ -19,6 +19,8 @@ import { listInventoryItems } from '../../graphql/queries';
 
 import {NotificationContext} from '../../notifications/NotificationContext'
 
+import InventoryHelpModal from '../help/InventoryHelpModal'
+
 const Inventory = () => {
   const history = useHistory()
   const queryPage = useLocation().search.match(/page=([0-9]+)/, '')
@@ -95,7 +97,7 @@ const Inventory = () => {
       <CCol xl={12}>
         <CCard>
           <CCardHeader>
-            <h5>Inventory</h5>
+            <h5>Inventory<span class="span-right"><InventoryHelpModal/></span></h5>
           </CCardHeader>
           <CCardBody>
           <Link to="/newinventoryitem">Add New Inventory Item</Link>

@@ -19,6 +19,8 @@ import { Modal } from '@coreui/coreui'
 
 import {NotificationContext} from '../../notifications/NotificationContext'
 
+import InventoryItemDetailHelpModal from '../help/InventoryItemDetailHelpModal'
+
 const InventoryItem = ({ match }) => {
 
   const [inventoryItem, setInventoryItem] = useState([]);
@@ -230,7 +232,7 @@ const InventoryItem = ({ match }) => {
         <CCol xs="12" md="6">
           <CCard>
             <CCardHeader>
-              <h5>Inventory Item</h5>
+              <h5>Inventory Item<span class="span-right"><InventoryItemDetailHelpModal/></span></h5>
           </CCardHeader>
             <CCardBody>
               <CForm action="" method="post" className="form-horizontal">

@@ -13,6 +13,7 @@ import {
 
 import { API } from 'aws-amplify';
 import { listJobs } from '../../graphql/queries';
+import JobsHelpModal from '../help/JobsHelpModal'
 
 const Jobs = () => {
   const history = useHistory()
@@ -67,7 +68,7 @@ const Jobs = () => {
       <CCol xl={12}>
         <CCard>
           <CCardHeader>
-            <h5>Jobs</h5>
+            <h5>Jobs<span class="span-right"><JobsHelpModal/></span></h5>
           </CCardHeader>
           <CCardBody>
           <Link to="/newjob">Add New Job</Link>

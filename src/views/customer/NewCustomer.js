@@ -21,6 +21,8 @@ import { useHistory } from "react-router-dom";
 
 import { Modal } from '@coreui/coreui';
 
+import NewCustomerHelpModal from '../help/NewCustomerHelpModal'
+
 const initialFormState = { name: '', email: '', phone: '', address: '' }
 
 const NewCustomer = () => {
@@ -181,7 +183,7 @@ const NewCustomer = () => {
         <CCol xs="12" md="6">
           <CCard>
             <CCardHeader>
-              <h5>New Customer</h5>
+              <h5>New Customer<span class="span-right"><NewCustomerHelpModal/></span></h5>
             </CCardHeader>
             <CCardBody>
               <CForm action="" method="post" className="form-horizontal">

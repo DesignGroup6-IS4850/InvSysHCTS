@@ -37,6 +37,11 @@ import { listJobInventorys } from '../../graphql/queries';
 
 import { Modal } from '@coreui/coreui';
 
+import InvoiceHelpModal from '../help/InvoiceHelpModal'
+import JobDetailHelpModal from '../help/JobDetailHelpModal'
+import JobMaterialListHelpModal from '../help/JobMaterialListHelpModal'
+import LaborHelpModal from '../help/LaborHelpModal'
+
 const Job = ({ match }) => {
 
     const [job, setJob] = useState([]);
@@ -1268,7 +1273,7 @@ const Job = ({ match }) => {
                 <CCol xs="12" md="6">
                     <CCard>
                         <CCardHeader>
-                            <h5>Job Detail</h5>
+                            <h5>Job Detail<span class="span-right"><JobDetailHelpModal/></span></h5>
                         </CCardHeader>
                         <CCardBody>
                             <CForm action="" method="post" className="form-horizontal">
@@ -1322,7 +1327,7 @@ const Job = ({ match }) => {
                     </CCard>
                     <CCard>
                         <CCardHeader>
-                            <h5>Invoices</h5>
+                            <h5>Invoices<span class="span-right"><InvoiceHelpModal/></span></h5>
                         </CCardHeader>
                         <CCardBody>
                         <CForm action="" method="post" className="form-horizontal">
@@ -1375,7 +1380,7 @@ const Job = ({ match }) => {
                 <CCol xs="12" md="6">
                     <CCard>
                         <CCardHeader>
-                            <h5>Job Material List</h5>
+                            <h5>Job Material List<span class="span-right"><JobMaterialListHelpModal/></span></h5>
                         </CCardHeader>
                         <CCardBody>
                             <CForm action="" method="post" className="form-horizontal">
@@ -1429,7 +1434,7 @@ const Job = ({ match }) => {
                     </CCard>
                     <CCard>
                         <CCardHeader>
-                            <h5>Labor</h5>
+                            <h5>Labor<span class="span-right"><LaborHelpModal/></span></h5>
                         </CCardHeader>
                         <CCardBody>
                             <CForm action="" method="post" className="form-horizontal">

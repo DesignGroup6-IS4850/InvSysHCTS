@@ -22,6 +22,8 @@ import { useHistory } from "react-router-dom";
 
 import { Modal } from '@coreui/coreui';
 
+import NewJobHelpModal from '../help/NewJobHelpModal'
+
 const initialFormState = { name: '', startDate: '', endDate: '', completed: false}
 
 const NewJob = () => {
@@ -236,7 +238,7 @@ const NewJob = () => {
         <CCol xs="12" md="6">
           <CCard>
             <CCardHeader>
-              <h5>New Job</h5>
+              <h5>New Job<span class="span-right"><NewJobHelpModal/></span></h5>
             </CCardHeader>
             <CCardBody>
               <CForm action="" method="post" className="form-horizontal">

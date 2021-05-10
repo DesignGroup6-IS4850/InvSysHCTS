@@ -15,6 +15,8 @@ import {
 import { API } from 'aws-amplify';
 import { listCustomers } from '../../graphql/queries';
 
+import CustomerHelpModal from '../help/CustomerHelpModal'
+
 const Customers = () => {
   const history = useHistory()
   const queryPage = useLocation().search.match(/page=([0-9]+)/, '')
@@ -52,7 +54,7 @@ const Customers = () => {
       <CCol xl={12}>
         <CCard>
           <CCardHeader>
-            <h5>Customers</h5>
+            <h5>Customers<span class="span-right"><CustomerHelpModal/></span></h5>
           </CCardHeader>
           <CCardBody>
           <Link to="/newcustomer">Add New Customer</Link>
